@@ -17,6 +17,7 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (RentACarContext context = new RentACarContext())
             {
+
                 var result = from c in context.Cars
                              join b in context.Brands
                              on c.BrandId equals b.BrandId
@@ -24,7 +25,8 @@ namespace DataAccess.Concrete.EntityFramework
                              {
                                  CarId = c.CarId,
                                  CarName = c.CarName,
-                      
+
+
                              };
                 return result.ToList();
             }
