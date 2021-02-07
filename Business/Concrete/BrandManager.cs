@@ -16,48 +16,14 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
-        public void Add(Brand brand)
-        {
-            if (brand.BrandName.Length > 2)
-            {
-                _brandDal.Add(brand);
-                Console.WriteLine("Marka başarıyla eklendi.");
-            }
-            else
-            {
-                Console.WriteLine($"Lütfen marka isminin uzunluğunu 2 karakterden fazla giriniz. Girdiğiniz marka ismi : {brand.BrandName}");
-            }
-        }
-
-        public void Delete(Brand brand)
-        {
-            _brandDal.Delete(brand);
-            Console.WriteLine("Marka başarıyla silindi.");
-
-        }
-
         public List<Brand> GetAll()
         {
             return _brandDal.GetAll();
         }
 
-        public Brand GetById(int id)
+        public Brand GetById(int brandId)
         {
-            return _brandDal.Get(c => c.BrandId == id);
-        }
-
-        public void Update(Brand brand)
-        {
-            if (brand.BrandName.Length >= 2)
-            {
-                _brandDal.Update(brand);
-                Console.WriteLine("Marka başarıyla Güncellendi.");
-            }
-            else
-            {
-                Console.WriteLine($"Lütfen marka isminin uzunluğunu 1 karakterden fazla giriniz. Girdiğiniz marka ismi : {brand.BrandName}");
-            }
-
+            return _brandDal.Get(b => b.BrandId == brandId);
         }
     }
 }

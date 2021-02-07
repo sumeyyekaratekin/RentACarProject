@@ -1,11 +1,12 @@
-﻿using Core.Entities;
+﻿using Core;
+using Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Entities.Concrete
+namespace Entities.DTOs
 {
-    public class Car : IEntity
+    public class CarDetailDto : IDto
     {
         public int CarId { get; set; }
         public string ModelYear { get; set; }
