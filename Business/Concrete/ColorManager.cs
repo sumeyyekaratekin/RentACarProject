@@ -1,4 +1,8 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -16,14 +20,37 @@ namespace Business.Concrete
             _colorDal = brandDal;
         }
 
-        public List<Color> GetAll()
+        [ValidationAspect(typeof(ColorValidator))]
+        public IResult Add(Color entity)
         {
-            return _colorDal.GetAll();
+            _colorDal.Add(entity);
+            return new SuccessResult(Messages.AddedColor);
         }
 
-        public Color GetById(int colorId)
+        public IResult Delete(Color color)
         {
-            return _colorDal.Get(c => c.ColorId == colorId);
+            _colorDal.Delete(color);
+            return new SuccessResult(Messages.DeletedColor);
+
+        }
+
+        public IDataResult<List<Color>> GetAll()
+        {
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll());
+
+        }
+
+        public IDataResult<Color> GetById(int id)
+        {
+            return new SuccessDataResult<Color>(_colorDal.Get(c => c.Id == id));
+        }
+
+        [ValidationAspect(typeof(ColorValidator))]
+        public IResult Update(Color entity)
+        {
+            _colorDal.Update(entity);
+            return new SuccessResult(Messages.UpdatedColor);
+
         }
     }
 }

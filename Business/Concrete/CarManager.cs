@@ -1,9 +1,15 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspect.Autofac;
+using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Business.Concrete
@@ -17,41 +23,44 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public List<Car> GetAll()
+        [SecuredOperation("car.add,admin")]
+        [ValidationAspect(typeof(CarValidator))]
+        public IResult Add(Car car)
         {
-            return _carDal.GetAll();
+            _carDal.Add(car);
+            return new SuccessResult(Messages.AddedCar);
+           
         }
 
-        public List<Car> GetAllByBrandId(int id)
+        public IResult Delete(Car car)
         {
-            return _carDal.GetAll(c => c.BrandId == id);
+           
+            _carDal.Delete(car);
+            return new SuccessResult(Messages.DeletedCar);
+            
         }
 
-        public List<Car> GetAllByColorId(int id)
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll(c => c.ColorId == id);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll());
+        }
+
+        public IDataResult<Car> GetById(int id)
+        {
+            return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == id));
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetails(Expression<Func<Car,bool>> filter = null)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(filter));
 
         }
 
-        public List<Car> GetByDailyPrice(decimal min, decimal max)
+        [ValidationAspect(typeof(CarValidator))]
+        public IResult Update(Car car)
         {
-            return _carDal.GetAll(c => c.DailyPrice >= min && c.DailyPrice <= max);
-
-        }
-
-        public Car GetById(int id)
-        {
-            return _carDal.Get(c => c.CarId == id);
-        }
-
-        public List<Car> GetByModelYear(string year)
-        {
-            return _carDal.GetAll(c => c.ModelYear.Contains(year) == true);
-        }
-
-        public List<CarDetailDto> GetProductDetails()
-        {
-            return _carDal.GetProductDetails();
+            _carDal.Update(car);
+            return new SuccessResult(Messages.UpdatedCar);
         }
     }
 }

@@ -1,6 +1,12 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,14 +22,36 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
-        public List<Brand> GetAll()
+        [ValidationAspect(typeof(BrandValidator))]
+        public IResult Add(Brand brand)
         {
-            return _brandDal.GetAll();
+            _brandDal.Add(brand);            
+            return new SuccessResult(Messages.AddedBrand);
         }
 
-        public Brand GetById(int brandId)
+        public IResult Delete(Brand brand)
         {
-            return _brandDal.Get(b => b.BrandId == brandId);
+            _brandDal.Delete(brand);
+            return new SuccessResult(Messages.DeletedBrand);
+        }
+
+        public IDataResult<List<Brand>> GetAll()
+        {
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
+        }
+
+        public IDataResult<Brand> GetById(int id)
+        {
+            return new SuccessDataResult<Brand>(_brandDal.Get(c => c.Id == id));
+        }
+
+        [ValidationAspect(typeof(BrandValidator))]
+        public IResult Update(Brand brand)
+        {
+            
+            _brandDal.Update(brand);
+            return new SuccessResult(Messages.UpdatedBrand);
+            
         }
     }
 }

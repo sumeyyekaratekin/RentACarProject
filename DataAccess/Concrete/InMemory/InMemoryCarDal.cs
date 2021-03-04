@@ -3,10 +3,11 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace DataAccess.Concrete.InMemory
 {
-    // public class InMemoryCarDal : ICarDal
+    //public class InMemoryCarDal : ICarDal
     public class InMemoryCarDal
     {
         //List<Car> _cars;

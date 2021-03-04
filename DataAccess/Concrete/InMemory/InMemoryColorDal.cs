@@ -8,7 +8,7 @@ using System.Text;
 namespace DataAccess.Concrete.InMemory
 {
     //public class InMemoryColorDal : IColorDal
-    public class InMemoryColorDal
+    public class InMemoryColorDal 
     {
         //List<Color> _colors;
 
