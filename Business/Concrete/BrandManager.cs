@@ -1,5 +1,4 @@
 ﻿using Business.Abstract;
-using Business.BusinessAspect.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -29,7 +28,7 @@ namespace Business.Concrete
             _brandDal.Add(brand);            
             return new SuccessResult(Messages.AddedBrand);
         }
-        [SecuredOperation("brand.delete,admin")]
+
         public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);

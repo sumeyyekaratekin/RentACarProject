@@ -12,10 +12,12 @@ namespace Business.Concrete
     public class UserManager : IUserService
     {
         IUserDal _userDal;
+
         public UserManager(IUserDal userDal)
         {
             _userDal = userDal;
         }
+
         public IResult Add(User user)
         {
             _userDal.Add(user);
@@ -38,14 +40,14 @@ namespace Business.Concrete
             return new SuccessDataResult<User>(_userDal.Get(I => I.Id == id));
         }
 
-        public IDataResult<User> GetByMail(string email)
+        public User GetByMail(string email)
         {
-            return new SuccessDataResult<User>(_userDal.Get(u => u.Email == email));
+            return _userDal.Get(u => u.Email == email);
         }
 
-        public IDataResult<List<OperationClaim>> GetClaims(User user)
+        public List<OperationClaim> GetClaims(User user)
         {
-            return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user));
+            return _userDal.GetClaims(user);
         }
 
         public IResult Update(User user)
@@ -53,5 +55,6 @@ namespace Business.Concrete
             _userDal.Update(user);
             return new SuccessResult(Messages.UpdatedColor);
         }
+
     }
 }

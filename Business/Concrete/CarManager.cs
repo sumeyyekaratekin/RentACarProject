@@ -31,23 +31,6 @@ namespace Business.Concrete
             return new SuccessResult(Messages.AddedCar);
            
         }
-       /* 
-        [TransactionAspect]
-        [PerformanceAspect(0)]
-        public IResult AddTransactionTest(Car entity)
-        {
-            _carDal.Add(entity);
-            if (entity.BrandId == 1002)
-            {
-                throw new Exception("");
-            }
-
-            entity.Id = 0;
-            entity.Description = "TransactionTest" + entity.Description;
-            _carDal.Add(entity);
-            return new SuccessResult(Messages.AddCarMessage);
-        }
-        */
 
         public IResult Delete(Car car)
         {
@@ -60,21 +43,6 @@ namespace Business.Concrete
         public IDataResult<List<Car>> GetAll()
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll());
-        }
-
-        public IDataResult<List<Car>> GetByBrandId(int brandId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IDataResult<List<Car>> GetByColorId(int colorId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IDataResult<List<Car>> GetByDailyPrice(decimal min, decimal max)
-        {
-            throw new NotImplementedException();
         }
 
         public IDataResult<Car> GetById(int id)
