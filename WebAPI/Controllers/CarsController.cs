@@ -92,7 +92,7 @@ namespace WebAPI.Controllers
         [HttpGet("getcarbycolor")]
         public IActionResult GetCarByColor(int id)
         {
-            
+
             var result = _carService.GetCarDetails(I => I.ColorId == id);
             if (result.Success)
             {
