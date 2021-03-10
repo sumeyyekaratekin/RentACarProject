@@ -36,15 +36,15 @@ namespace Business.Concrete
         {
             _carDal.Add(car);
             return new SuccessResult(Messages.AddedCar);
-
+           
         }
 
         public IResult Delete(Car car)
         {
-
+           
             _carDal.Delete(car);
             return new SuccessResult(Messages.DeletedCar);
-
+            
         }
 
         [CacheAspect(duration: 10)]
@@ -63,7 +63,7 @@ namespace Business.Concrete
         }
 
         [CacheAspect]
-        public IDataResult<List<CarDetailDto>> GetCarDetails(Expression<Func<Car, bool>> filter = null)
+        public IDataResult<List<CarDetailDto>> GetCarDetails(Expression<Func<Car,bool>> filter = null)
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(filter));
 
