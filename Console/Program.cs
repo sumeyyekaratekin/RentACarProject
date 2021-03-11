@@ -13,6 +13,7 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
+
             CarManager carManager = new CarManager(new EfCarDal());
             BrandManager brandManager = new BrandManager(new EfBrandDal());
             ColorManager colorManager = new ColorManager(new EfColorDal());
@@ -20,6 +21,7 @@ namespace ConsoleUI
             UserManager userManager = new UserManager(new EfUserDal());
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
 
+            /*
             bool cikis = true;
 
             while (cikis)
@@ -359,6 +361,8 @@ namespace ConsoleUI
             {
                 Console.WriteLine($"{color.Id}\t{color.ColorName}");
             }
+            */
         }
     }
+    
 }
