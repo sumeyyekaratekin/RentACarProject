@@ -1,0 +1,138 @@
+{
+  "Message": {
+    "ExceptionMessage": "Connection Timeout Expired.  The timeout period elapsed while attempting to consume the pre-login handshake acknowledgement.  This could be because the pre-login handshake failed or the server was unable to respond back in time.  The duration spent while attempting to connect to this server was - [Pre-Login] initialization=53351; handshake=1214; ",
+    "MethodName": "GetAll",
+    "LogParameters": []
+  }
+}
+{
+  "Message": {
+    "ExceptionMessage": "Connection Timeout Expired.  The timeout period elapsed while attempting to consume the pre-login handshake acknowledgement.  This could be because the pre-login handshake failed or the server was unable to respond back in time.  The duration spent while attempting to connect to this server was - [Pre-Login] initialization=53351; handshake=1214; ",
+    "MethodName": "GetAll",
+    "LogParameters": []
+  }
+}
+{
+  "Message": {
+    "ExceptionMessage": "Connection Timeout Expired.  The timeout period elapsed while attempting to consume the pre-login handshake acknowledgement.  This could be because the pre-login handshake failed or the server was unable to respond back in time.  The duration spent while attempting to connect to this server was - [Pre-Login] initialization=19265; handshake=222; ",
+    "MethodName": "Add",
+    "LogParameters": [
+      {
+        "Name": "brand",
+        "Value": {
+          "Id": 0,
+          "BrandName": "Tesla"
+        },
+        "Type": "Brand"
+      }
+    ]
+  }
+}
+{
+  "Message": {
+    "ExceptionMessage": "Connection Timeout Expired.  The timeout period elapsed while attempting to consume the pre-login handshake acknowledgement.  This could be because the pre-login handshake failed or the server was unable to respond back in time.  The duration spent while attempting to connect to this server was - [Pre-Login] initialization=19265; handshake=222; ",
+    "MethodName": "Add",
+    "LogParameters": [
+      {
+        "Name": "brand",
+        "Value": {
+          "Id": 0,
+          "BrandName": "Tesla"
+        },
+        "Type": "Brand"
+      }
+    ]
+  }
+}
+{
+  "Message": {
+    "ExceptionMessage": "Database operation expected to affect 1 row(s) but actually affected 0 row(s). Data may have been modified or deleted since entities were loaded. See http://go.microsoft.com/fwlink/?LinkId=527962 for information on understanding and handling optimistic concurrency exceptions.",
+    "MethodName": "Delete",
+    "LogParameters": [
+      {
+        "Name": "color",
+        "Value": {
+          "Id": 0,
+          "ColorName": "Lacivert"
+        },
+        "Type": "Color"
+      }
+    ]
+  }
+}
+{
+  "Message": {
+    "ExceptionMessage": "Database operation expected to affect 1 row(s) but actually affected 0 row(s). Data may have been modified or deleted since entities were loaded. See http://go.microsoft.com/fwlink/?LinkId=527962 for information on understanding and handling optimistic concurrency exceptions.",
+    "MethodName": "Delete",
+    "LogParameters": [
+      {
+        "Name": "color",
+        "Value": {
+          "Id": 0,
+          "ColorName": "Lacivert"
+        },
+        "Type": "Color"
+      }
+    ]
+  }
+}
+{
+  "Message": {
+    "ExceptionMessage": "Database operation expected to affect 1 row(s) but actually affected 0 row(s). Data may have been modified or deleted since entities were loaded. See http://go.microsoft.com/fwlink/?LinkId=527962 for information on understanding and handling optimistic concurrency exceptions.",
+    "MethodName": "Delete",
+    "LogParameters": [
+      {
+        "Name": "color",
+        "Value": {
+          "Id": 8,
+          "ColorName": null
+        },
+        "Type": "Color"
+      }
+    ]
+  }
+}
+{
+  "Message": {
+    "ExceptionMessage": "Database operation expected to affect 1 row(s) but actually affected 0 row(s). Data may have been modified or deleted since entities were loaded. See http://go.microsoft.com/fwlink/?LinkId=527962 for information on understanding and handling optimistic concurrency exceptions.",
+    "MethodName": "Delete",
+    "LogParameters": [
+      {
+        "Name": "color",
+        "Value": {
+          "Id": 8,
+          "ColorName": null
+        },
+        "Type": "Color"
+      }
+    ]
+  }
+}
+{
+
+{
+
+{
+  "Message": {
+    "ExceptionMessage": "Database operation expected to affect 1 row(s) but actually affected 0 row(s). Data may have been modified or deleted since entities were loaded. See http://go.microsoft.com/fwlink/?LinkId=527962 for information on understanding and handling optimistic concurrency exceptions.",
+    "MethodName": "Update",
+    "LogParameters": [
+      {
+        "Name": "color",
+        "Value": {
+          "Id": 7,
+          "ColorName": "Yeþil"
+        },
+        "Type": "Color"
+      }
+    ]
+  }
+}
+
+{
+  "Message": {
+    "MethodName": "GetAll",
+    "LogParameters": []
+  }
+}
+

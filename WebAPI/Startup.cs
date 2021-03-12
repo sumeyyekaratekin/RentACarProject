@@ -39,6 +39,9 @@ namespace WebAPI
         {
             services.AddControllers();
 
+            //Cross-Origin Resource Sharing (Kökenler arasý kaynak paylaþýmý) 
+            services.AddCors();
+
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -68,6 +71,9 @@ namespace WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            //CORS
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyOrigin());
 
             app.UseHttpsRedirection();
 

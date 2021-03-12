@@ -53,7 +53,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getall")]
+        [HttpGet("getallcolord")]
         public IActionResult GetAll()
         {
             var result = _colorService.GetAll();

@@ -33,6 +33,13 @@ namespace Business.Concrete
             return new SuccessResult(Messages.DeletedCustomer);
         }
 
+        [ValidationAspect(typeof(CustomerValidator))]
+        public IResult Update(Customer customer)
+        {
+            _customerDal.Update(customer);
+            return new SuccessResult(Messages.UpdatedCustomer);
+        }
+
         public IDataResult<List<Customer>> GetAll()
         {
             return new SuccessDataResult<List<Customer>>(_customerDal.GetAll());
@@ -43,11 +50,5 @@ namespace Business.Concrete
             return new SuccessDataResult<Customer>(_customerDal.Get(c => c.Id == id));
         }
 
-        [ValidationAspect(typeof(CustomerValidator))]
-        public IResult Update(Customer customer)
-        {
-            _customerDal.Update(customer);
-            return new SuccessResult(Messages.UpdatedCustomer);
-        }
     }
 }
