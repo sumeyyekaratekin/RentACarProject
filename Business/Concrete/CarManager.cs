@@ -47,7 +47,7 @@ namespace Business.Concrete
             
         }
 
-        [CacheAspect(duration: 10)]// denemek için 1 verilebilir.
+        [CacheAspect(duration: 10)]
         [LogAspect(typeof(FileLogger))]
         [PerformanceAspect(5)]
         public IDataResult<List<Car>> GetAll()
