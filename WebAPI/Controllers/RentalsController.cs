@@ -79,6 +79,7 @@ namespace WebAPI.Controllers
         public IActionResult GetAllCarDetails()
         {
             var result = _rentalService.GetRentalDetails();
+
             if (result.Success)
             {
                 return Ok(result);
