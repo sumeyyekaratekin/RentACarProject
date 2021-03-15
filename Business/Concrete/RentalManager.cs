@@ -68,7 +68,7 @@ namespace Business.Concrete
 
         private IResult CheckCarExistInRentalList(Rental rental)
         {
-            if (rental.ReturnDate == null && _rentalDal.GetCarDetails(I => I.CarId == rental.CarId).Count > 0)
+            if (rental.ReturnDate == null && _rentalDal.GetCarDetails(I => I.CarId == rental.CarId).Count > 1)
             {
                 return new ErrorResult(Messages.FailedRentalAddOrUpdate);
             }
