@@ -23,10 +23,12 @@ namespace Business.Concrete
     public class CarManager : ICarService
     {
         ICarDal _carDal;
-
-        public CarManager(ICarDal carDal)
+        ICarImageService _carImageService;
+        public CarManager(ICarDal carDal, ICarImageService carImageService)
         {
             _carDal = carDal;
+            _carImageService = carImageService;
+
         }
 
         //[SecuredOperation("car.add,admin")]
