@@ -48,5 +48,6 @@ namespace Business.Constants
         public static string PasswordError = "Parola hatası!";
         public static string UserAlreadyExists = "Kullanıcı mevcut!";
         public static string AccessTokenCreated = "Token oluşturuldu.";
+        public static string CustomerDetailListed = "Müşteriler Listelendi";
     }
 }
