@@ -76,9 +76,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getallrentaldetails")]
-        public IActionResult GetAllCarDetails()
+        public IActionResult GetAllRentalDetails()
         {
-            var result = _rentalService.GetRentalDetails();
+            var result = _rentalService.GetRentalDetailsDto();
 
             if (result.Success)
             {
@@ -87,29 +87,5 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-
-        [HttpGet("getrentalbycar")]
-        public IActionResult GetCarByColor(int id)
-        {
-
-            var result = _rentalService.GetRentalDetails(I => I.CarId == id);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-
-        [HttpGet("getrentalbycustomer")]
-        public IActionResult GetCarByBrand(int id)
-        {
-
-            var result = _rentalService.GetRentalDetails(I => I.CustomerId == id);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
     }
 }

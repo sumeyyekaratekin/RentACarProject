@@ -54,9 +54,9 @@ namespace Business.Concrete
             return new SuccessDataResult<Rental>(_rentalDal.Get(I => I.Id == id));
         }
 
-        public IDataResult<List<RentalDetailDto>> GetRentalDetails(Expression<Func<Rental, bool>> filter = null)
+        public IDataResult<List<RentalDetailDto>> GetRentalDetailsDto()
         {
-            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetCarDetails(filter), Messages.ReturnedRental);
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails(), Messages.ReturnedRental);
         }
 
         [ValidationAspect(typeof(RentalValidator))]
@@ -68,7 +68,7 @@ namespace Business.Concrete
 
         private IResult CheckCarExistInRentalList(Rental rental)
         {
-            if (rental.ReturnDate == null && _rentalDal.GetCarDetails(I => I.CarId == rental.CarId).Count > 1)
+            if (rental.ReturnDate == null && _rentalDal.GetRentalDetails(I => I.CarId == rental.CarId).Count > 1)
             {
                 return new ErrorResult(Messages.FailedRentalAddOrUpdate);
             }
