@@ -74,14 +74,14 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-        //[httpget("getcustomerdetails")]
-        //public actionresult getcustomerdetails()
-        //{
-        //    var result = _customerservice.getcustomerdetails();
-        //    if (result.success)
-        //        return ok(result);
-        //    return badrequest(result);
-        //}
+        [HttpGet("getcustomerdetails")]
+        public IActionResult GetAllCustomerDetails()
+        {
+            var result = _customerService.GetAllCustomerDetails();
+            if (result.success)
+                return Ok(result);
+            return BadRequest(result);
+        }
 
     }
 }
