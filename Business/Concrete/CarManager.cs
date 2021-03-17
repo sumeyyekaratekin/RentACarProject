@@ -23,11 +23,9 @@ namespace Business.Concrete
     public class CarManager : ICarService
     {
         ICarDal _carDal;
-        ICarImageService _carImageService;
-        public CarManager(ICarDal carDal, ICarImageService carImageService)
+        public CarManager(ICarDal carDal)
         {
             _carDal = carDal;
-            _carImageService = carImageService;
 
         }
 
@@ -54,7 +52,7 @@ namespace Business.Concrete
         [PerformanceAspect(5)]
         public IDataResult<List<Car>> GetAll()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(1000);
             return new SuccessDataResult<List<Car>>(_carDal.GetAll());
         }
 

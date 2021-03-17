@@ -68,11 +68,7 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<CarImage>(_carImageDal.Get(I => I.Id == id));
         }
-        public IDataResult<List<CarImage>> GetAllImagesByCarId(int CarId)
-        {
-
-            return new SuccessDataResult<List<CarImage>>(CheckIfDefaultImages(CarId));
-        }
+        //
 
         public IResult Update(IFormFile file, CarImage carImage)
         {
@@ -81,22 +77,8 @@ namespace Business.Concrete
             carImage.CarImageDate = DateTime.Now;
             _carImageDal.Update(carImage);
             return new SuccessResult();
-
         }
-        private List<CarImage> CheckIfDefaultImages(int Id)
-        {
-            var DefaultPath = AppDomain.CurrentDomain.BaseDirectory + "..\\..\\..\\wwwroot\\Images\\default.png";
-
-
-            var result = _carImageDal.GetAll(p => p.CarId == Id).Any();
-            if (!result)
-            {
-                return new List<CarImage> { new CarImage { CarId = Id, ImagePath = DefaultPath, CarImageDate = DateTime.Now } };
-            }
-            return _carImageDal.GetAll(p => p.CarId == Id);
-        }
-
-
+        //
         private IResult CheckCarImageLimit(CarImage carImage)
         {
             if (_carImageDal.GetAll(c => c.CarId == carImage.CarId).Count >= 5)

@@ -18,32 +18,26 @@ namespace DataAccess.Concrete.EntityFramework.Repository
         {
             using (RentACarContext context = new RentACarContext())
             {
-
-                var result = from c in context.Cars
-                             join b in context.Brands
-                             on c.BrandId equals b.Id
+                var result = from c in filter == null ? context.Cars : context.Cars.Where(filter)
                              join co in context.Colors
                              on c.ColorId equals co.Id
-                             //join ci in context.CarImages
-                             //on c.Id equals ci.CarId
+                             join b in context.Brands
+                             on c.BrandId equals b.Id
+                             join ci in context.CarImages
+                             on c.Id equals ci.CarId
                              select new CarDetailDto
                              {
                                  CarId = c.Id,
                                  BrandName = b.BrandName,
-                                 BrandId = b.Id,
-                                 ColorId = co.Id,
                                  ColorName = co.ColorName,
                                  DailyPrice = c.DailyPrice,
                                  Descriptions = c.Descriptions,
                                  ModelYear = c.ModelYear,
-                                 ImagePath = (from a in context.CarImages where a.CarId == c.Id select a.ImagePath).FirstOrDefault()
+                                 CarImageDate = ci.CarImageDate,
+                                 ImagePath = ci.ImagePath
                              };
-                return filter == null ? result.ToList() : result.Where(filter).ToList();
+                return result.ToList();
             }
-
-
-               
-               
         }
     }
 }
