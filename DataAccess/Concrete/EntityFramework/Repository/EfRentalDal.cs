@@ -34,6 +34,7 @@ namespace DataAccess.Concrete.EntityFramework.Repository
                                  ReturnDate = r.ReturnDate,
                                  BrandName = b.BrandName,
                                  Description = c.Description,
+                                 CarName =c.CarName,
                                  ColorName = cl.ColorName,
                                  CompanyName = cs.CompanyName,
                                  DailyPrice = c.DailyPrice,
