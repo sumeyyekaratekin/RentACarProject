@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -21,70 +22,58 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add([FromForm(Name = "Image")] IFormFile file, [FromForm] CarImage carImage)
+        public IActionResult Add([FromForm] CarImagesDto carImagesDto)
         {
-            var result = _carImageService.Add(file, carImage);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
+            var result = _carImageService.Add(carImagesDto);
+            if (!result.Success) return BadRequest(result);
+            return Ok(result);
         }
 
-        [HttpPut("update")]
-        public IActionResult Update([FromForm(Name = "Image")] IFormFile file, [FromForm] CarImage carImage)
+        [HttpPost("update")]
+        public IActionResult Update([FromForm] CarImagesDto carImagesDto)
         {
-            var result = _carImageService.Update(file, carImage);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
+            var result = _carImageService.Update(carImagesDto);
+            if (!result.Success) return BadRequest(result);
+            return Ok(result);
         }
 
-        [HttpDelete("delete")]
-        public IActionResult Delete(CarImage carImage)
+        [HttpPost("delete")]
+        public IActionResult Delete(CarImagesDto carImagesDto)
         {
-            var result = _carImageService.Delete(carImage);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
+            var result = _carImageService.Delete(carImagesDto);
+            if (!result.Success) return BadRequest(result);
+            return Ok(result);
         }
-
-        [HttpGet("getall")]
-        public IActionResult GetAll()
+        [HttpPost("deletebycarid")]
+        public IActionResult DeleteByCarId(int carId)
         {
-            var result = _carImageService.GetAll();
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
+            var result = _carImageService.DeleteByCarId(carId);
+            if (!result.Success) return BadRequest(result);
+            return Ok(result);
         }
 
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
             var result = _carImageService.GetById(id);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
+            if (!result.Success) return BadRequest(result);
+            return Ok(result);
         }
 
-        [HttpGet("getbycar")]
-        public IActionResult GetByCar(int id)
+        [HttpGet("getbycarid")]
+        public IActionResult GetByCarId(int carId)
         {
-            var result = _carImageService.GetAll(I => I.CarId == id);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
+            var result = _carImageService.GetByCarId(carId);
+            if (!result.Success) return BadRequest();
+            return Ok(result);
         }
 
+        [HttpGet("getall")]
+        public IActionResult GetList()
+        {
+            var result = _carImageService.GetAll();
+            if (!result.Success) return BadRequest(result);
+            return Ok(result);
+        }
     }
 }

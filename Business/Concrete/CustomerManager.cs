@@ -1,13 +1,15 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspect.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
-using Entities.Dtos;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -15,13 +17,12 @@ namespace Business.Concrete
     public class CustomerManager : ICustomerService
     {
         ICustomerDal _customerDal;
-
-
         public CustomerManager(ICustomerDal customerDal)
         {
             _customerDal = customerDal;
         }
 
+       // [SecuredOperation("Customer")]
         [ValidationAspect(typeof(CustomerValidator))]
         public IResult Add(Customer customer)
         {
@@ -51,7 +52,10 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<Customer>(_customerDal.Get(c => c.Id == id));
         }
-        public IDataResult<List<CustomerDetailDto>> GetCustomerDetail() => new SuccessDataResult<List<CustomerDetailDto>>(_customerDal.GetCustomerList(), Messages.CustomerDetailListed);
+        public IDataResult<List<CustomerDetailDto>> GetCustomerDetails()
+        {
+            return new SuccessDataResult<List<CustomerDetailDto>>(_customerDal.GetCustomerDetails(), Messages.CustomerDetailListed);
+        }
     }
 }
 

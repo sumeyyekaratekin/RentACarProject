@@ -23,9 +23,12 @@ namespace Business.Concrete
     public class CarManager : ICarService
     {
         ICarDal _carDal;
-        public CarManager(ICarDal carDal)
+        ICarImageService _carImageService;
+
+        public CarManager(ICarDal carDal, ICarImageService carImageService)
         {
             _carDal = carDal;
+            _carImageService = carImageService;
 
         }
 
@@ -41,14 +44,21 @@ namespace Business.Concrete
 
         public IResult Delete(Car car)
         {
-
+            _carImageService.DeleteByCarId(car.Id);
             _carDal.Delete(car);
             return new SuccessResult(Messages.DeletedCar);
-
         }
 
-        [CacheAspect(duration: 10)]
-        [LogAspect(typeof(FileLogger))]
+        [ValidationAspect(typeof(CarValidator))]
+        public IResult Update(Car car)
+        {
+
+            _carDal.Update(car);
+            return new SuccessResult(Messages.UpdatedCar);
+        }
+
+        //[CacheAspect(duration: 10)]
+        //[LogAspect(typeof(FileLogger))]
         [PerformanceAspect(5)]
         public IDataResult<List<Car>> GetAll()
         {
@@ -62,20 +72,16 @@ namespace Business.Concrete
             return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == id));
         }
 
-        //[CacheAspect]
-        public IDataResult<List<CarDetailDto>> GetCarDetails(Expression<Func<Car, bool>> filter = null)
+        public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(filter));
-
+            return new SuccessDataResult<List<Car>>(_carDal.GetCarsByBrandId(brandId));
         }
 
-        [ValidationAspect(typeof(CarValidator))]
-        public IResult Update(Car car)
+        public IDataResult<List<Car>> GetCarsByColorId(int colorId)
         {
-            _carDal.Update(car);
-            return new SuccessResult(Messages.UpdatedCar);
+            return new SuccessDataResult<List<Car>>(_carDal.GetCarsByColorId(colorId));
         }
-
+       
         [TransactionScopeAspect]
         public IResult TransactionalOperation(Car car)
         {
@@ -83,5 +89,30 @@ namespace Business.Concrete
             _carDal.Add(car);
             return new SuccessResult(Messages.UpdatedCar);
         }
+
+        [CacheAspect]
+        public IDataResult<List<CarDetailDto>> GetCarDetails()
+        {
+
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+
+        }
+        public IDataResult<List<CarDetailDto>> GetCarDetailsById(int carId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(p => p.Id == carId));
+        }
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByColorId(int ColorId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.ColorId == ColorId));
+
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByBrandId(int BrandId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(p => p.BrandId == BrandId));
+        }
+
+      
+
     }
 }

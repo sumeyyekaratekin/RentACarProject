@@ -14,12 +14,12 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
 
-            CarManager carManager = new CarManager(new EfCarDal());
-            BrandManager brandManager = new BrandManager(new EfBrandDal());
-            ColorManager colorManager = new ColorManager(new EfColorDal());
-            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
-            UserManager userManager = new UserManager(new EfUserDal());
-            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            //CarManager carManager = new CarManager(new EfCarDal());
+            //BrandManager brandManager = new BrandManager(new EfBrandDal());
+            //ColorManager colorManager = new ColorManager(new EfColorDal());
+            //CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            //UserManager userManager = new UserManager(new EfUserDal());
+            //RentalManager rentalManager = new RentalManager(new EfRentalDal());
 
             /*
             bool cikis = true;

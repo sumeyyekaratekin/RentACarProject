@@ -7,6 +7,7 @@ using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -15,15 +16,15 @@ namespace Business.Concrete
     {
         IColorDal _colorDal;
 
-        public ColorManager(IColorDal brandDal)
+        public ColorManager(IColorDal colorDal)
         {
-            _colorDal = brandDal;
+            _colorDal = colorDal;
         }
 
         [ValidationAspect(typeof(ColorValidator))]
-        public IResult Add(Color entity)
+        public IResult Add(Color color)
         {
-            _colorDal.Add(entity);
+            _colorDal.Add(color);
             return new SuccessResult(Messages.AddedColor);
         }
 
@@ -34,9 +35,17 @@ namespace Business.Concrete
 
         }
 
+        [ValidationAspect(typeof(ColorValidator))]
+        public IResult Update(Color entity)
+        {
+            _colorDal.Update(entity);
+            return new SuccessResult(Messages.UpdatedColor);
+
+        }
+
         public IDataResult<List<Color>> GetAll()
         {
-            return new SuccessDataResult<List<Color>>(_colorDal.GetAll());
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll().ToList());
 
         }
 
@@ -45,12 +54,5 @@ namespace Business.Concrete
             return new SuccessDataResult<Color>(_colorDal.Get(c => c.Id == id));
         }
 
-        [ValidationAspect(typeof(ColorValidator))]
-        public IResult Update(Color entity)
-        {
-            _colorDal.Update(entity);
-            return new SuccessResult(Messages.UpdatedColor);
-
-        }
     }
 }

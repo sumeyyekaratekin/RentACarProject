@@ -8,15 +8,15 @@ using System.Text;
 
 namespace Business.Abstract
 {
-    public interface ICarService
+    public interface ICarService : IEntityServiceBase<Car>
     {
-        IResult Add(Car car);
-        IResult Update(Car car);
-        IResult Delete(Car car);
-        IDataResult<List<Car>> GetAll();
-        IDataResult<Car> GetById(int id);
-        IDataResult<List<CarDetailDto>> GetCarDetails(Expression<Func<Car,bool>> filter = null);
-
+        IDataResult<List<Car>> GetCarsByBrandId(int brandId);
+        IDataResult<List<Car>> GetCarsByColorId(int colorId);
+        IDataResult<List<CarDetailDto>> GetCarDetailsByColorId(int colorId);
+        IDataResult<List<CarDetailDto>> GetCarDetailsByBrandId(int brandId);
+        IDataResult<List<CarDetailDto>> GetCarDetails();
+        IDataResult<List<CarDetailDto>> GetCarDetailsById(int id);
+   
         IResult TransactionalOperation(Car car);
     }
 }

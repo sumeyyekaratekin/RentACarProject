@@ -9,6 +9,7 @@ using Entities.Concrete;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -37,12 +38,12 @@ namespace Business.Concrete
 
         public IDataResult<List<Brand>> GetAll()
         {
-            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll().ToList());
         }
 
         public IDataResult<Brand> GetById(int id)
         {
-            return new SuccessDataResult<Brand>(_brandDal.Get(c => c.Id == id));
+            return new SuccessDataResult<Brand>(_brandDal.Get(b => b.Id == id));
         }
 
         [ValidationAspect(typeof(BrandValidator))]

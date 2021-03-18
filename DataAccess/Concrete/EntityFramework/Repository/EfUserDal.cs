@@ -22,7 +22,6 @@ namespace DataAccess.Concrete.EntityFramework.Repository
                              where userOperationClaim.UserId == user.Id
                              select new OperationClaim { Id = operationClaim.Id, Name = operationClaim.Name };
                 return result.ToList();
-
             }
         }
     }

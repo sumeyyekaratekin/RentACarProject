@@ -34,11 +34,12 @@ namespace Business.Constants
         public static string UpdatedRental = "Araba Kiralama işlemi güncellendi.";
         public static string FailedRentalAddOrUpdate = "Bu araba henüz teslim edilmediği için kiralayamazsınız.";
         public static string ReturnedRental = "Kiraladığınız araç teslim edildi.";
-
+      
         public static string AddedCarImage = "Araba için yüklenilen resim başarıyla eklendi.";
         public static string DeletedCarImage = "Arabanın resmi başarıyla silindi.";
         public static string UpdatedCarImage = "Araba için yüklenilen resim başarıyla güncellendi.";
         public static string FailedCarImageAdd = "Bir araba 5'den fazla resme sahip olamaz.";
+        public static string CarImageNotFound = "Araba Resmi Bulunamadı.";
 
         public static string AuthorizationDenied = "Yetkiniz yok.";
         public static string UserRegistered = "Kullanıcı başarıyla kayıt oldu.";
@@ -49,5 +50,6 @@ namespace Business.Constants
         public static string UserAlreadyExists = "Kullanıcı mevcut!";
         public static string AccessTokenCreated = "Token oluşturuldu.";
         public static string CustomerDetailListed = "Müşteriler Listelendi";
+        public static string UsersListed = "Kullanıcılar Listelendi";
     }
 }
