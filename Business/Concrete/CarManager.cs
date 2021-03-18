@@ -62,7 +62,7 @@ namespace Business.Concrete
         [PerformanceAspect(5)]
         public IDataResult<List<Car>> GetAll()
         {
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
             return new SuccessDataResult<List<Car>>(_carDal.GetAll());
         }
 
