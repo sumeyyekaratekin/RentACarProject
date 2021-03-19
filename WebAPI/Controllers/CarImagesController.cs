@@ -69,7 +69,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getall")]
-        public IActionResult GetList()
+        public IActionResult GetAll()
         {
             var result = _carImageService.GetAll();
             if (!result.Success) return BadRequest(result);
