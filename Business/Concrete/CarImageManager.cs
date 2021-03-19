@@ -24,7 +24,6 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(CarImageValidator))]
-        //   [CancellationTokenAspect]
         public IResult Add(CarImagesDto carImagesDto)
         {
             var result = BusinessRules.Run(CheckCarImagesCount(carImagesDto.CarId));
