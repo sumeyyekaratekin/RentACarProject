@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -51,5 +52,9 @@ namespace Business.Constants
         public static string AccessTokenCreated = "Token oluşturuldu.";
         public static string CustomerDetailListed = "Müşteriler Listelendi";
         public static string UsersListed = "Kullanıcılar Listelendi";
+
+        public static string GetErrorCarMessage = "Car Bilgileri getirilemedi";
+        public static string InsufficientBalance = "Yetersiz bakiye";
+        public static string PaymentCompleted = "Ödeme yapıldı";
     }
 }

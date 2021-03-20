@@ -43,6 +43,9 @@ namespace Business.DependencyResolvers.Autofac
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
+            builder.RegisterType<PaymentManager>().As<IPaymentService>();
+
+
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
                 .EnableInterfaceInterceptors(new ProxyGenerationOptions()
                 {

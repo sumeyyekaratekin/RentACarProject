@@ -40,7 +40,8 @@ namespace DataAccess.Concrete.EntityFramework.Repository
                                  DailyPrice = c.DailyPrice,
                                  FirstName = u.FirstName,
                                  LastName = u.LastName,
-                                 ModelYear = c.ModelYear
+                                 ModelYear = c.ModelYear,
+                                 TotalPrice = Convert.ToDecimal(r.ReturnDate.Day - r.RentDate.Day) * c.DailyPrice
                              };
 
                 return filter == null ? result.ToList() : result.Where(filter).ToList();
