@@ -94,7 +94,7 @@ namespace WebAPI.Controllers
         [TransactionScopeAspect]
         public ActionResult PaymentAdd(RentalPaymentDto rentalPaymentDto)
         {
-            var paymentResult = _paymentService.ReceivePayment(rentalPaymentDto.Payment);
+            var paymentResult = _paymentService.AddPayment(rentalPaymentDto.Payment);
             if (!paymentResult.Success)
             {
                 return BadRequest(paymentResult);

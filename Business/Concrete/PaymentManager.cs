@@ -10,7 +10,7 @@ namespace Business.Concrete
 {
     public class PaymentManager : IPaymentService
     {
-        public IResult ReceivePayment(Payment payment)
+        public IResult AddPayment(Payment payment)
         {
             if (payment.Amount > 5000)
             {
