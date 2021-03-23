@@ -53,8 +53,9 @@ namespace Business.Constants
         public static string CustomerDetailListed = "Müşteriler Listelendi";
         public static string UsersListed = "Kullanıcılar Listelendi";
 
-        public static string GetErrorCarMessage = "Car Bilgileri getirilemedi";
+        public static string GetErrorCarMessage = "Araç Bilgileri getirilemedi";
         public static string InsufficientBalance = "Yetersiz bakiye";
         public static string PaymentCompleted = "Ödeme yapıldı";
+        public static string CarsListed = "Arabalar Listelendi.";
     }
 }
