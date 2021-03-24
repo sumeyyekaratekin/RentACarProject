@@ -111,7 +111,9 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(p => p.BrandId == BrandId));
         }
-        public IDataResult<List<CarDetailDto>> GetCarDetailByBrandIdAndColorId(int brandId, int colorId)
+
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByBrandIdAndColorId(int brandId, int colorId)
         {
             List<CarDetailDto> carDetails = _carDal.GetCarDetails(p => p.BrandId == brandId && p.ColorId == colorId);
             if (carDetails == null)
@@ -123,6 +125,5 @@ namespace Business.Concrete
                 return new SuccessDataResult<List<CarDetailDto>>(carDetails, Messages.CarsListed);
             }
         }
-
     }
 }
