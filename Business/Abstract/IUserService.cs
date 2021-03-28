@@ -9,6 +9,7 @@ namespace Business.Abstract
     public interface IUserService : IEntityServiceBase<User>
     {
         List<OperationClaim> GetClaims(User user);
+        IResult UpdateInfos(User user);
         User GetByMail(string email);
     }
 }
