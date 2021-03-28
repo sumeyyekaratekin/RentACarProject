@@ -26,7 +26,8 @@ namespace Business.Concrete
         [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
-            if (!CarIsAvailable(rental.CarId)) return new ErrorResult(Messages.FailedRentalAddOrUpdate);
+           // if (!CarIsAvailable(rental.CarId)) return new ErrorResult(Messages.FailedRentalAddOrUpdate);
+            if (!IsCarAvailable(rental.CarId)) return new ErrorResult(Messages.CarIsntAvailable);
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.AddedRental);
         }
@@ -60,14 +61,14 @@ namespace Business.Concrete
             return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.Id == id));
         }
 
-        public bool CarIsAvailable(int carId)
+        public bool IsCarAvailable(int carId)
         {
             using (RentACarContext context = new RentACarContext())
             {
                 var result = from r in context.Rentals
-                             where r.CarId == carId && r.ReturnDate == null
-                             select r;
-                return (result.Count() == 1) ? false : true;
+                    where r.CarId == carId && r.ReturnDate == null
+                    select r;
+                return (result.Count() == 0) ? true : false;
             }
         }
 

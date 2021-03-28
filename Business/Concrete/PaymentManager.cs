@@ -1,22 +1,24 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Core.Utilities.Results;
+using DataAccess.Abstract;
 using Entities.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Business.Concrete
 {
     public class PaymentManager : IPaymentService
     {
-        public IResult AddPayment(Payment payment)
+        IPaymentDal _paymentDal;
+
+        public PaymentManager(IPaymentDal paymentDal)
         {
-            if (payment.Amount > 5000)
-            {
-                return new ErrorResult(Messages.InsufficientBalance);
-            }
-            return new SuccessResult(Messages.PaymentCompleted);
+            _paymentDal = paymentDal;
+        }
+
+        public IResult Add(Payment payment)
+        {
+            _paymentDal.Add(payment);
+            return new SuccessResult(Messages.AddedCustomer);
         }
     }
 }

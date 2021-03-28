@@ -1,6 +1,5 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
-using Entities.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Core.Aspects.Autofac.Transaction;
@@ -90,24 +89,16 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-        [HttpPost("paymentadd")]
-        [TransactionScopeAspect]
-        public ActionResult PaymentAdd(RentalPaymentDto rentalPaymentDto)
-        {
-            var paymentResult = _paymentService.AddPayment(rentalPaymentDto.Payment);
-            if (!paymentResult.Success)
-            {
-                return BadRequest(paymentResult);
-            }
-            var result = _rentalService.Add(rentalPaymentDto.Rental);
 
-            if (result.Success)
-                return Ok(result);
-            else
+        [HttpGet("iscaravailable")]
+        public IActionResult IsCarAvailable(int carId)
+        {
+            var result = _rentalService.IsCarAvailable(carId);
+            if (result)
             {
-                throw new System.Exception(result.Message);
-                //return BadRequest(result);                    
+                return Ok(result);
             }
+            return BadRequest(result);
         }
 
     }

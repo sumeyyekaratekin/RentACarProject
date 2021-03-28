@@ -7,6 +7,10 @@ namespace Entities.Concrete
 {
     public class Payment : IEntity
     {
-        public decimal Amount { get; set; }
+        public int Id { get; set; }
+        public DateTime PaymentDate { get; set; }
+        public int CustomerId { get; set; }
+        public int? CardId { get; set; }
+        public decimal Total { get; set; }
     }
 }

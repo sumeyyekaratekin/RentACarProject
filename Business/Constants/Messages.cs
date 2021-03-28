@@ -35,7 +35,7 @@ namespace Business.Constants
         public static string UpdatedRental = "Araba Kiralama işlemi güncellendi.";
         public static string FailedRentalAddOrUpdate = "Bu araba henüz teslim edilmediği için kiralayamazsınız.";
         public static string ReturnedRental = "Kiraladığınız araç teslim edildi.";
-      
+
         public static string AddedCarImage = "Araba için yüklenilen resim başarıyla eklendi.";
         public static string DeletedCarImage = "Arabanın resmi başarıyla silindi.";
         public static string UpdatedCarImage = "Araba için yüklenilen resim başarıyla güncellendi.";
@@ -54,8 +54,9 @@ namespace Business.Constants
         public static string UsersListed = "Kullanıcılar Listelendi";
 
         public static string GetErrorCarMessage = "Araç Bilgileri getirilemedi";
-        public static string InsufficientBalance = "Yetersiz bakiye";
         public static string PaymentCompleted = "Ödeme yapıldı";
         public static string CarsListed = "Arabalar Listelendi.";
+        public static string CarIsntAvailable = "Araç kiralanmaz.!";
+        public static string CarAdded = "kredi Kartı eklendi.";
     }
 }
