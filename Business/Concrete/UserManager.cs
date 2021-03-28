@@ -50,6 +50,16 @@ namespace Business.Concrete
             return new SuccessDataResult<User>(_userDal.Get(u => u.Id == id));
         }
 
+        public IResult UpdateInfos(User user)
+        { 
+            var userToUpdate = GetById(user.Id).Data;
+            userToUpdate.FirstName = user.FirstName;
+            userToUpdate.LastName = user.LastName;
+            userToUpdate.Email = user.Email;
+            Update(userToUpdate);
+            return new SuccessResult();
+        }
+
         public User GetByMail(string email)
         {
             return _userDal.Get(u => u.Email == email);
