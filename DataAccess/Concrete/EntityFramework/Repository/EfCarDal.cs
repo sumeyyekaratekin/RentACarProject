@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Core.Extensions;
 
 namespace DataAccess.Concrete.EntityFramework.Repository
 {
@@ -39,53 +40,27 @@ namespace DataAccess.Concrete.EntityFramework.Repository
             }
         }
 
-        public List<CarDetailDto> GetCarDetailsById(int Id)
-        {
-            using (RentACarContext context = new RentACarContext())
-            {
-                var result = from c in context.Cars
-                    join co in context.Colors on c.ColorId equals co.Id
-                    join b in context.Brands on c.BrandId equals b.Id
-                    join im in context.CarImages on c.Id equals im.CarId
-                    where c.Id == Id
-                    select new CarDetailDto
-                    {
-                        BrandId = b.Id,
-                        BrandName = b.BrandName,
-                        ColorId = co.Id,
-                        ColorName = co.ColorName,
-                        DailyPrice = c.DailyPrice,
-                        Description = c.Description,
-                        ModelYear = c.ModelYear,
-                        Id = c.Id,
-                        CarImageDate = im.CarImageDate,
-                        ImagePath = im.ImagePath,
-                        ImageId = im.Id
-                    };
-                return result.ToList();
-            }
-        }
-        public List<CarDetailDto> GetCarDetailsByBrandIdAndColorId(int brandId, int colorId)
-        {
-            using (RentACarContext context = new RentACarContext())
-            {
-                var result = from c in context.Cars.Where
-                        (c => c.BrandId == brandId && c.ColorId == colorId)
-                    join b in context.Brands on c.BrandId equals b.Id
-                    join co in context.Colors on c.ColorId equals co.Id
 
+        public List<CarDetailDto> GetAllCarDetailsByFilter(CarDetailFilterDto filterDto)
+        {
+            using (RentACarContext context = new RentACarContext())
+            {
+                var filterExpression = filterDto.GetFilterExpression<Car>();
+                var result = from car in filterExpression == null ? context.Cars : context.Cars.Where(filterExpression)
+                    join color in context.Colors on car.ColorId equals color.Id
+                    join brand in context.Brands on car.BrandId equals brand.Id
                     select new CarDetailDto
                     {
-                        Id = c.Id,
-                        BrandName = b.BrandName,
-                        ColorName = co.ColorName,
-                        DailyPrice = c.DailyPrice,
-                        ModelYear = c.ModelYear,
-                        ImagePath = (from carImage in context.CarImages
-                            where (carImage.CarId == c.Id)
-                            select carImage).FirstOrDefault().ImagePath
+                        Id = car.Id,
+                        BrandName = brand.BrandName,
+                        CarName = car.CarName,
+                        Description = car.Description,
+                        ColorName = color.ColorName,
+                        DailyPrice = car.DailyPrice,
+                        ModelYear = car.ModelYear
                     };
-                return result.ToList();
+                return result.ToList(); 
+
             }
         }
     }

@@ -129,5 +129,11 @@ namespace Business.Concrete
                 return new SuccessDataResult<List<CarDetailDto>>(carDetails, Messages.CarsListed);
             }
         }
+
+        public IDataResult<List<CarDetailDto>> GetCarsDetails(CarDetailFilterDto filterDto)
+        {
+            
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetailsByFilter(filterDto));
+        }
     }
 }
