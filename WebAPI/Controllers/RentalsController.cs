@@ -2,7 +2,6 @@
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Core.Aspects.Autofac.Transaction;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +13,10 @@ namespace WebAPI.Controllers
     [ApiController]
     public class RentalsController : ControllerBase
     {
-        private readonly IRentalService _rentalService;
-        private readonly IPaymentService _paymentService;
-
-        public RentalsController(IRentalService rentalService, IPaymentService paymentService)
+        IRentalService _rentalService;
+        public RentalsController(IRentalService rentalService)
         {
             _rentalService = rentalService;
-            _paymentService = paymentService;
         }
 
         [HttpPost("add")]
@@ -78,6 +74,16 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("getallbycarid")]
+        public IActionResult GetAllByCarId(int carId)
+        {
+            var result = _rentalService.GetAllByCarId(carId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
         [HttpGet("getrentaldetails")]
         public IActionResult GetAllRentalDetails()
         {
@@ -90,15 +96,37 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("iscaravailable")]
-        public IActionResult IsCarAvailable(int carId)
+        [HttpGet("getallbycustomerid")]
+        public IActionResult GetAllByCustomerId(int customerId)
         {
-            var result = _rentalService.IsCarAvailable(carId);
-            if (result)
+            var result = _rentalService.GetAllByCustomerId(customerId);
+            if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
+        }
+
+        [HttpGet("getlastbycarid")]
+        public IActionResult GetLastByCarId(int carId)
+        {
+            var result = _rentalService.GetAllByCarId(carId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("isrentable")]
+        public IActionResult IsRentable(Rental rental)
+        {
+            var result = _rentalService.IsRentable(rental);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return Ok(result);
         }
 
     }

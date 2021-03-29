@@ -4,13 +4,13 @@ using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
-using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.EntityFramework.Context;
 using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Utilities.Business;
 
 namespace Business.Concrete
 {
@@ -23,16 +23,22 @@ namespace Business.Concrete
             _rentalDal = rentalDal;
         }
 
-        [ValidationAspect(typeof(RentalValidator))]
+        //[ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
-           // if (!CarIsAvailable(rental.CarId)) return new ErrorResult(Messages.FailedRentalAddOrUpdate);
-            if (!IsCarAvailable(rental.CarId)) return new ErrorResult(Messages.CarIsntAvailable);
+            var result = BusinessRules.Run(
+                IsRentable(rental));
+            if (result != null)
+            {
+                return result;
+            }
+            rental.RentDate = DateTime.Now;
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.AddedRental);
+
         }
 
-        [ValidationAspect(typeof(RentalValidator))]
+       // [ValidationAspect(typeof(RentalValidator))]
         public IResult Update(Rental rental)
         {
             _rentalDal.Update(rental);
@@ -51,36 +57,55 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.ReturnedRental);
         }
 
-        public IDataResult<List<RentalDetailDto>> GetRentalDetails()
+        public IDataResult<List<Rental>> GetAllByCarId(int carId)
         {
-            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails(), Messages.ReturnedRental);
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(r => r.CarId == carId));
+        }
+
+        public IDataResult<Rental> GetLastByCarId(int carId)
+        {
+            return new SuccessDataResult<Rental>(_rentalDal.GetAll(r => r.CarId == carId).LastOrDefault());
+        }
+
+        public IDataResult<List<Rental>> GetAllByCustomerId(int customerId)
+        {
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(r => r.UserId == customerId));
         }
 
         public IDataResult<Rental> GetById(int id)
         {
             return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.Id == id));
         }
-
-        public bool IsCarAvailable(int carId)
+        public IResult IsDelivered(Rental rental)
         {
-            using (RentACarContext context = new RentACarContext())
-            {
-                var result = from r in context.Rentals
-                    where r.CarId == carId && r.ReturnDate == null
-                    select r;
-                return (result.Count() == 0) ? true : false;
-            }
+            var result = this.GetAllByCarId(rental.CarId).Data.LastOrDefault();
+            if (result == null || result.ReturnDate != default)
+                return new SuccessResult();
+            return new ErrorResult();
+
         }
 
-        public IResult CarIsReturned(int carId)
+        public IResult IsRentable(Rental rental)
         {
-            using (RentACarContext context = new RentACarContext())
+            var result = this.GetAllByCarId(rental.CarId).Data;
+            foreach (var pastRental in result)
             {
-                Rental result = _rentalDal.Get(r => r.CarId == carId && r.ReturnDate == null);
-                result.ReturnDate = DateTime.Now;
-                _rentalDal.Update(result);
+                if ((!IsDelivered(pastRental).Success) &&
+                    ((rental.RentStartDate <= pastRental.RentEndDate && rental.RentStartDate >= pastRental.RentStartDate) ||
+                     (rental.RentEndDate <= pastRental.RentEndDate && rental.RentEndDate >= pastRental.RentStartDate) ||
+                     (rental.RentStartDate <= pastRental.RentStartDate && rental.RentEndDate >= pastRental.RentEndDate)))
+                {
+                    return new ErrorResult();
+                }
             }
-            return new SuccessResult(Messages.UpdatedRental); ;
+            return new SuccessResult();
         }
+
+        public IDataResult<List<RentalDetailDto>> GetRentalDetails()
+        {
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails(), Messages.ReturnedRental);
+        }
+
+
     }
 }

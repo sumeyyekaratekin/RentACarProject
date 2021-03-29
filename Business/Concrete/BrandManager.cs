@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Business.BusinessAspect.Autofac;
 
 namespace Business.Concrete
 {
@@ -24,13 +25,15 @@ namespace Business.Concrete
         }
 
 
-        [ValidationAspect(typeof(BrandValidator))]
+        //[ValidationAspect(typeof(BrandValidator))]
+        [SecuredOperation("admin")]
         public IResult Add(Brand brand)
         {
             _brandDal.Add(brand);            
             return new SuccessResult(Messages.AddedBrand);
         }
 
+        [SecuredOperation("admin")]
         public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
@@ -39,7 +42,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Brand>> GetAll()
         {
-            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll().ToList());
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(),Messages.BrandListed);
         }
 
         public IDataResult<Brand> GetById(int id)
@@ -47,7 +50,8 @@ namespace Business.Concrete
             return new SuccessDataResult<Brand>(_brandDal.Get(b => b.Id == id));
         }
 
-        [ValidationAspect(typeof(BrandValidator))]
+        //[ValidationAspect(typeof(BrandValidator))]
+        [SecuredOperation("admin")]
         public IResult Update(Brand brand)
         {
             

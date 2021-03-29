@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Business.BusinessAspect.Autofac;
 
 namespace Business.Concrete
 {
@@ -21,6 +22,7 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
+        [SecuredOperation("admin")]
         [ValidationAspect(typeof(ColorValidator))]
         public IResult Add(Color color)
         {
@@ -28,6 +30,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.AddedColor);
         }
 
+        [SecuredOperation("admin")]
         public IResult Delete(Color color)
         {
             _colorDal.Delete(color);
@@ -35,6 +38,7 @@ namespace Business.Concrete
 
         }
 
+        [SecuredOperation("admin")]
         [ValidationAspect(typeof(ColorValidator))]
         public IResult Update(Color entity)
         {
@@ -45,7 +49,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Color>> GetAll()
         {
-            return new SuccessDataResult<List<Color>>(_colorDal.GetAll().ToList());
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(),Messages.ColorListed);
 
         }
 

@@ -8,9 +8,7 @@ using Entities.Concrete;
 
 namespace DataAccess.Concrete.EntityFramework.Repository
 {
-    public class EfCardDal : EfEntityRepositoryBase<Card, RentACarContext>, ICardDal
+    public class EfCustomerCardDal : EfEntityRepositoryBase<CustomerCard, RentACarContext>, ICustomerCardDal
     {
-
-
     }
 }

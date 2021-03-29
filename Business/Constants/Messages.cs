@@ -16,11 +16,13 @@ namespace Business.Constants
         public static string AddedCar = "Araba başarıyla eklendi.";
         public static string DeletedCar = "Araba başarıyla silindi.";
         public static string UpdatedCar = "Araba başarıyla güncellendi.";
+        public static string BrandListed = "Markalar Listelendi";
         public static string FailedCarAddOrUpdate = "Lütfen günlük fiyat kısmını 0'dan büyük giriniz.";
 
         public static string AddedColor = "Renk başarıyla eklendi.";
         public static string DeletedColor = "Renk başarıyla silindi.";
         public static string UpdatedColor = "Renk başarıyla güncellendi.";
+        public static string ColorListed = "Renkler Listelendi";
 
         public static string AddedCustomer = "Müşteri başarıyla eklendi.";
         public static string DeletedCustomer = "Müşteri başarıyla silindi.";
@@ -52,6 +54,7 @@ namespace Business.Constants
         public static string AccessTokenCreated = "Token oluşturuldu.";
         public static string CustomerDetailListed = "Müşteriler Listelendi";
         public static string UsersListed = "Kullanıcılar Listelendi";
+        public static string UpdatedUserInfos = "Kullanıcı Bilgileri Güncellendi.";
 
         public static string GetErrorCarMessage = "Araç Bilgileri getirilemedi";
         public static string CarsListed = "Arabalar Listelendi.";
@@ -59,5 +62,8 @@ namespace Business.Constants
         public static string CarAdded = "Kredi Kartı eklendi.";
 
         public static string PasswordChanged = "Parola değiştirildi";
+        public static string CardSaved = "Kart Kaydedildi.";
+        public static string CardDeleted = "Kart Silindi.";
+      
     }
 }

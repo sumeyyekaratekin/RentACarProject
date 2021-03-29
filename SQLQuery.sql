@@ -75,13 +75,24 @@ CREATE TABLE [dbo].[Users] (
     [Status]       BIT             NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC)
 );
-CREATE TABLE [dbo].[Payments] (
-    [Id]          INT          NOT NULL IDENTITY (1, 1),
-    [PaymentDate] DATETIME     NOT NULL,
-    [CustomerId]  INT          NOT NULL,
-    [CardId]      INT          NOT NULL,
-    [Total]       DECIMAL (18) NOT NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC),
-    FOREIGN KEY ([CustomerId]) REFERENCES [dbo].[Customers] ([Id])
+
+CREATE TABLE [dbo].[FakeCard]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [NameOnTheCard] NVARCHAR(150) NOT NULL, 
+    [CardNumber] NVARCHAR(16) NOT NULL, 
+    [CardCvv] NCHAR(3) NOT NULL, 
+    [expirationDate] NVARCHAR(50) NOT NULL, 
+    [MoneyInTheCard] DECIMAL NOT NULL
 );
+
+CREATE TABLE [dbo].[CustomerCard]
+(
+	[CustomerId] INT NOT NULL PRIMARY KEY, 
+    [CardId] INT NOT NULL,
+	FOREIGN KEY ([CardId]) REFERENCES [dbo].[FakeCard] ([Id])
+);
+
+
+
 

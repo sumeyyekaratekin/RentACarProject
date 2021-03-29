@@ -11,6 +11,7 @@ using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Business.BusinessAspect.Autofac;
 
 namespace Business.Concrete
 {
@@ -24,6 +25,7 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(CarImageValidator))]
+        [SecuredOperation("admin")]
         public IResult Add(CarImagesDto carImagesDto)
         {
             var result = BusinessRules.Run(CheckCarImagesCount(carImagesDto.CarId));
@@ -38,7 +40,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.AddedCarImage);
         }
 
-
+        [SecuredOperation("admin")]
         [ValidationAspect(typeof(CarImageValidator))]
         public IResult Update(CarImagesDto carImagesDto)
         {
@@ -50,7 +52,7 @@ namespace Business.Concrete
             _carImageDal.Update(result);
             return new SuccessResult(Messages.UpdatedCarImage);
         }
-
+        [SecuredOperation("admin")]
         public IResult Delete(CarImagesDto carImagesDto)
         {
             var result = _carImageDal.Get(ci => ci.Id == carImagesDto.Id);

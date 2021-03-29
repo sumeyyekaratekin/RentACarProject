@@ -41,10 +41,13 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 
+            builder.RegisterType<FakeCardManager>().As<IFakeCardService>().SingleInstance();
+            builder.RegisterType<EfFakeCardDal>().As<IFakeCardDal>().SingleInstance();
+
+            builder.RegisterType<CustomerCardManager>().As<ICustomerCardService>().SingleInstance();
+            builder.RegisterType<EfCustomerCardDal>().As<ICustomerCardDal>().SingleInstance();
+
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
-
-            builder.RegisterType<PaymentManager>().As<IPaymentService>();
-
 
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
                 .EnableInterfaceInterceptors(new ProxyGenerationOptions()
