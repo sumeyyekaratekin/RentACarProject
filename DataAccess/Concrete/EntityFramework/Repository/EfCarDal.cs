@@ -13,34 +13,6 @@ namespace DataAccess.Concrete.EntityFramework.Repository
 {
     public class EfCarDal : EfEntityRepositoryBase<Car, RentACarContext>, ICarDal
     {
-        public List<CarDetailDto> GetCarDetails(Expression<Func<Car, bool>> filter = null)
-        {
-            using (RentACarContext context = new RentACarContext())
-            {
-                var result = (from c in filter == null ? context.Cars : context.Cars.Where(filter)
-                             join co in context.Colors on c.ColorId equals co.Id
-                             join b in context.Brands on c.BrandId equals b.Id
-                             join im in context.CarImages on c.Id equals im.CarId
-                             select new CarDetailDto
-                             {
-                                 Id = c.Id,
-                                 CarName = c.CarName,
-                                 ColorId = c.ColorId,
-                                 ColorName = co.ColorName,
-                                 BrandId = c.BrandId,
-                                 BrandName = b.BrandName,
-                                 ModelYear = c.ModelYear,
-                                 DailyPrice = c.DailyPrice,
-                                 Description = c.Description, 
-                                 CarImageDate = im.CarImageDate,
-                                 ImagePath = im.ImagePath,
-                                 ImageId = im.Id
-                             }).ToList();
-                return result.GroupBy(c => c.Id).Select(c=> c.FirstOrDefault()).ToList();
-            }
-        }
-
-
         public List<CarDetailDto> GetAllCarDetailsByFilter(CarDetailFilterDto filterDto)
         {
             using (RentACarContext context = new RentACarContext())
@@ -59,7 +31,7 @@ namespace DataAccess.Concrete.EntityFramework.Repository
                         DailyPrice = car.DailyPrice,
                         ModelYear = car.ModelYear
                     };
-                return result.ToList(); 
+                return result.ToList();
 
             }
         }
