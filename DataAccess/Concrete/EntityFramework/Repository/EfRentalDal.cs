@@ -27,7 +27,7 @@ namespace DataAccess.Concrete.EntityFramework.Repository
                         on customer.UserId equals user.Id
                     select new RentalDetailDto
                     {
-                        Id = rent.Id,
+                        RentalId = rent.Id,
                         CarName = car.CarName,
                         CustomerFullName = user.FirstName + user.LastName,
                         RentDate = rent.RentDate,
@@ -38,6 +38,5 @@ namespace DataAccess.Concrete.EntityFramework.Repository
                 return result.ToList();
             }
         }
-
     }
 }

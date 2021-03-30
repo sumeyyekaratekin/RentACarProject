@@ -5,38 +5,40 @@
 );
 
 CREATE TABLE [dbo].[CarImages] (
-    [Id]           INT            IDENTITY (1, 1) NOT NULL,
-    [CarId]        INT            NOT NULL,
-    [ImagePath]    NVARCHAR (MAX) NOT NULL,
-    [CarImageDate] DATETIME       NOT NULL,
+    [Id]        INT            IDENTITY (1, 1) NOT NULL,
+    [CarId]     INT            NOT NULL,
+    [ImagePath] NVARCHAR (MAX) NOT NULL,
+    [Date]      DATETIME       NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
     FOREIGN KEY ([CarId]) REFERENCES [dbo].[Cars] ([Id])
 );
 
 CREATE TABLE [dbo].[Cars] (
-    [Id]          INT            IDENTITY (1, 1) NOT NULL,
-    [CarName]     NVARCHAR (50)  NOT NULL,
-    [BrandId]     INT            NOT NULL,
-    [ColorId]     INT            NOT NULL,
-    [ModelYear]   INT            NOT NULL,
-    [DailyPrice]  DECIMAL (18)   NOT NULL,
-    [Description] NVARCHAR (250) NOT NULL,
+    [Id]              INT            IDENTITY (1, 1) NOT NULL,
+    [CarName]         NVARCHAR (50)  NOT NULL,
+    [BrandId]         INT            NOT NULL,
+    [ColorId]         INT            NOT NULL,
+    [ModelYear]       INT            NOT NULL,
+    [DailyPrice]      DECIMAL (18)   NOT NULL,
+    [Description]     NVARCHAR (250) NOT NULL,
+    [MinFindeksScore] INT            NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
     FOREIGN KEY ([ColorId]) REFERENCES [dbo].[Colors] ([Id]),
     FOREIGN KEY ([BrandId]) REFERENCES [dbo].[Brands] ([Id])
 );
+
 CREATE TABLE [dbo].[Colors] (
     [Id]        INT           IDENTITY (1, 1) NOT NULL,
     [ColorName] NVARCHAR (25) NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
-
 CREATE TABLE [dbo].[Customers] (
-    [Id]          INT           IDENTITY (1, 1) NOT NULL,
-    [UserId]      INT           NOT NULL,
-    [CompanyName] NVARCHAR (50) NOT NULL,
-    PRIMARY KEY CLUSTERED ([Id] ASC),
+	[UserId] [int] NOT NULL,
+	[PhoneNumber] [varchar](15) NULL,
+	[Address] [varchar](150) NULL,
+	[FindeksScore] [int] NULL,
+    PRIMARY KEY CLUSTERED ([UserId] ASC),
     FOREIGN KEY ([UserId]) REFERENCES [dbo].[Users] ([Id])
 );
 
@@ -47,14 +49,16 @@ CREATE TABLE [dbo].[OperationClaims] (
 );
 
 CREATE TABLE [dbo].[Rentals] (
-    [Id]         INT      IDENTITY (1, 1) NOT NULL,
-    [CarId]      INT      NOT NULL,
-    [CustomerId] INT      NOT NULL,
-    [RentDate]   DATETIME NOT NULL,
-    [ReturnDate] DATETIME NOT NULL,
+    [Id]            INT      IDENTITY (1, 1) NOT NULL,
+    [CarId]         INT      NOT NULL,
+    [UserId]    INT      NOT NULL,
+    [RentDate]      DATETIME NOT NULL,
+    [ReturnDate]    DATETIME NOT NULL,
+    [RentStartDate] DATETIME NULL,
+    [RentEndDate]   DATETIME NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
     FOREIGN KEY ([CarId]) REFERENCES [dbo].[Cars] ([Id]),
-    FOREIGN KEY ([CustomerId]) REFERENCES [dbo].[Customers] ([Id])
+    FOREIGN KEY ([UserId]) REFERENCES [dbo].[Customers] ([UserId])
 );
 
 CREATE TABLE [dbo].[UserOperationClaims] (
@@ -76,21 +80,23 @@ CREATE TABLE [dbo].[Users] (
     PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
-CREATE TABLE [dbo].[FakeCard]
-(
-	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
-    [NameOnTheCard] NVARCHAR(150) NOT NULL, 
-    [CardNumber] NVARCHAR(16) NOT NULL, 
-    [CardCvv] NCHAR(3) NOT NULL, 
-    [expirationDate] NVARCHAR(50) NOT NULL, 
-    [MoneyInTheCard] DECIMAL NOT NULL
+
+CREATE TABLE [dbo].[FakeCard] (
+    [Id]             INT            IDENTITY (1, 1) NOT NULL,
+    [NameOnTheCard]  NVARCHAR (150) NOT NULL,
+    [CardNumber]     NVARCHAR (16)  NOT NULL,
+    [CardCvv]        NCHAR (3)      NOT NULL,
+    [expirationDate] NVARCHAR (50)  NOT NULL,
+    [MoneyInTheCard] DECIMAL (18)   NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
-CREATE TABLE [dbo].[CustomerCard]
-(
-	[CustomerId] INT NOT NULL PRIMARY KEY, 
+CREATE TABLE [dbo].[CustomerCard] (
     [CardId] INT NOT NULL,
-	FOREIGN KEY ([CardId]) REFERENCES [dbo].[FakeCard] ([Id])
+    [CustomerId]     INT NOT NULL,
+    PRIMARY KEY CLUSTERED ([CardId] ASC),
+    FOREIGN KEY ([CardId]) REFERENCES [dbo].[FakeCard] ([Id]),
+	FOREIGN KEY ([CustomerId]) REFERENCES [dbo].[Customers] ([UserId])
 );
 
 
