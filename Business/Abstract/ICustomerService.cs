@@ -9,7 +9,5 @@ namespace Business.Abstract
 {
     public interface ICustomerService : IEntityServiceBase<Customer>
     {
-        IDataResult<List<CustomerDetailDto>>GetCustomerDetails();
-
     }
 }

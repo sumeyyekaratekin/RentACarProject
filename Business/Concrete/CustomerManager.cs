@@ -1,15 +1,11 @@
 ﻿using Business.Abstract;
-using Business.BusinessAspect.Autofac;
 using Business.Constants;
-using Business.ValidationRules.FluentValidation;
-using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
-using Entities.DTOs;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -22,10 +18,15 @@ namespace Business.Concrete
             _customerDal = customerDal;
         }
 
-       // [SecuredOperation("Customer")]
-        [ValidationAspect(typeof(CustomerValidator))]
         public IResult Add(Customer customer)
         {
+            var result = BusinessRules.Run(
+                CheckFindexMax(customer),
+                CheckFindexMax(customer));
+            if (result != null)
+            {
+                return result;
+            }
             _customerDal.Add(customer);
             return new SuccessResult(Messages.AddedCustomer);
         }
@@ -33,29 +34,48 @@ namespace Business.Concrete
         public IResult Delete(Customer customer)
         {
             _customerDal.Delete(customer);
-            return new SuccessResult(Messages.DeletedCustomer);
-        }
-
-        [ValidationAspect(typeof(CustomerValidator))]
-        public IResult Update(Customer customer)
-        {
-            _customerDal.Update(customer);
-            return new SuccessResult(Messages.UpdatedCustomer);
+            return new SuccessResult();
         }
 
         public IDataResult<List<Customer>> GetAll()
         {
-            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll());
+            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(), Messages.UsersListed);
         }
 
         public IDataResult<Customer> GetById(int id)
         {
-            return new SuccessDataResult<Customer>(_customerDal.Get(c => c.Id == id));
+            return new SuccessDataResult<Customer>(_customerDal.Get(c => c.UserId == id));
         }
-        public IDataResult<List<CustomerDetailDto>> GetCustomerDetails()
+
+        public IResult Update(Customer customer)
         {
-            return new SuccessDataResult<List<CustomerDetailDto>>(_customerDal.GetCustomerDetails(), Messages.CustomerDetailListed);
+            var result = BusinessRules.Run(
+                CheckFindexMax(customer),
+                CheckFindexMax(customer));
+            if (result != null)
+            {
+                return result;
+            }
+            _customerDal.Update(customer);
+            return new SuccessResult();
+        }
+
+        public IResult CheckFindexMin(Customer customer)
+        {
+            if (customer.FindeksScore < 0)
+            {
+                return new ErrorResult();
+            }
+            return new SuccessResult();
+        }
+
+        public IResult CheckFindexMax(Customer customer)
+        {
+            if (customer.FindeksScore > 1900)
+            {
+                return new ErrorResult();
+            }
+            return new SuccessResult();
         }
     }
 }
-
