@@ -10,8 +10,8 @@ namespace Business.ValidationRules.FluentValidation
     {
         public ColorValidator()
         {
-            RuleFor(c => c.ColorName).NotEmpty();
-            RuleFor(c => c.ColorName).MinimumLength(3);
+            RuleFor(c => c.Name).NotEmpty();
+            RuleFor(c => c.Name).MinimumLength(3);
 
         }
     }
