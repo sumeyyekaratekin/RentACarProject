@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using Business.BusinessAspect.Autofac;
 using Core.Utilities.FileManager;
 
@@ -89,6 +88,7 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.Id == id));
         }
+
         [SecuredOperation("admin")]
         public IResult Update(CarImage carImage,IFormFile file)
         {
