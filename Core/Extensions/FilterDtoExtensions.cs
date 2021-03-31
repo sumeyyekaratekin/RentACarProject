@@ -1,7 +1,10 @@
 ﻿using Core.Entities;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using Core.Utilities.Attributes.FilterAttributes;
 
 namespace Core.Extensions
 {
@@ -9,25 +12,43 @@ namespace Core.Extensions
     {
         public static Expression<Func<TEntity, bool>> GetFilterExpression<TEntity>(this IFilterDto filterDto)
         {
-            Expression propertyExp, someValue, containsMethodExp, combinedExp;
+            Expression propertyExp, propertyValue, combinedExp;
             Expression<Func<TEntity, bool>> exp = c => true, oldExp;
-            MethodInfo method;
             var parameterExp = Expression.Parameter(typeof(TEntity), "type");
             foreach (PropertyInfo propertyInfo in filterDto.GetType().GetProperties())
             {
                 if (propertyInfo.GetValue(filterDto, null) != null)
                 {
                     oldExp = exp;
-                    propertyExp = Expression.Property(parameterExp, propertyInfo.Name);
-                    method = typeof(object).GetMethod("Equals", new[] { typeof(object) });
-                    someValue = Expression.Constant(filterDto.GetType().GetProperty(propertyInfo.Name).GetValue(filterDto, null), typeof(object));
-                    containsMethodExp = Expression.Call(propertyExp, method, someValue);
-                    exp = Expression.Lambda<Func<TEntity, bool>>(containsMethodExp, parameterExp);
+                    var targetProperty = propertyInfo.GetCustomAttributes<FilterAttribute>(true).ToList()[0].TargetProperty;
+                    propertyExp = Expression.Property(parameterExp, targetProperty);
+                    propertyValue = Expression.Constant(filterDto.GetType().GetProperty(propertyInfo.Name).GetValue(filterDto));
+                    Expression condition = SetConditionType(propertyInfo, propertyExp, propertyValue);
+                    exp = Expression.Lambda<Func<TEntity, bool>>(condition, parameterExp);
                     combinedExp = Expression.AndAlso(exp.Body, oldExp.Body);
                     exp = Expression.Lambda<Func<TEntity, bool>>(combinedExp, exp.Parameters[0]);
                 }
             }
             return exp;
+        }
+        static Expression SetConditionType(PropertyInfo propertyInfo, Expression propertyExp, Expression propertyValue)
+        {
+            var conditionType = propertyInfo.GetCustomAttributes<FilterAttribute>(true).ToList()[0].ConditionType;
+            if (conditionType.ToLower() == "max")
+            {
+                return Expression.LessThan(propertyExp, propertyValue);
+            }
+            else if (conditionType.ToLower() == "min")
+            {
+                return Expression.GreaterThan(propertyExp, propertyValue);
+            }
+            else if (conditionType.ToLower() == "equal")
+            {
+                var method = typeof(List<int>).GetMethod("Contains", BindingFlags.Instance | BindingFlags.Public);
+                var containsMethodExp = Expression.Call(propertyValue, method, propertyExp);
+                return containsMethodExp;
+            }
+            return null;
         }
     }
 }
