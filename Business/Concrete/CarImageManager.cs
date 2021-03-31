@@ -20,7 +20,6 @@ namespace Business.Concrete
     public class CarImageManager : ICarImageService
     {
         ICarImageDal _carImageDal;
-
         public CarImageManager(ICarImageDal carImageDal)
         {
             _carImageDal = carImageDal;
@@ -28,14 +27,14 @@ namespace Business.Concrete
 
         [ValidationAspect(typeof(CarImageValidator))]
         [SecuredOperation("admin")]
-        public IResult Add(CarImage carImage, IFormFile file)
+        public IResult Add(CarImage carImage,IFormFile file)
         {
             IResult result = BusinessRules.Run(
                 CheckIfImageLimitExpired(carImage.CarId),
                 CheckIfImageExtensionValid(file)
-            );
+                );
 
-            if (result != null)
+            if (result!=null)
             {
                 return result;
             }
@@ -51,12 +50,11 @@ namespace Business.Concrete
         {
             IResult result = BusinessRules.Run(
                 CheckIfImageExists(carImage.Id)
-            );
+                );
             if (result != null)
             {
                 return result;
             }
-
             string path = GetById(carImage.Id).Data.ImagePath;
             CarImagesFileHelper.Delete(path);
             _carImageDal.Delete(carImage);
@@ -72,10 +70,8 @@ namespace Business.Concrete
                 {
                     Delete(carImage);
                 }
-
                 return new SuccessResult();
             }
-
             return new ErrorResult(Messages.CarImageNotFound);
         }
 
@@ -93,15 +89,14 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.Id == id));
         }
-
         [SecuredOperation("admin")]
-        public IResult Update(CarImage carImage, IFormFile file)
+        public IResult Update(CarImage carImage,IFormFile file)
         {
             IResult result = BusinessRules.Run(
                 CheckIfImageLimitExpired(carImage.CarId),
                 CheckIfImageExtensionValid(file),
                 CheckIfImageExists(carImage.Id)
-            );
+                );
 
             if (result != null)
             {
@@ -109,7 +104,7 @@ namespace Business.Concrete
             }
 
             CarImage oldCarImage = GetById(carImage.Id).Data;
-            //carImage.ImagePath = CarImageFileHelper.Update(file, oldCarImage.ImagePath);
+            carImage.ImagePath = CarImagesFileHelper.Update(file, oldCarImage.ImagePath);
             carImage.Date = DateTime.Now;
             carImage.CarId = oldCarImage.CarId;
             _carImageDal.Update(carImage);
@@ -126,8 +121,7 @@ namespace Business.Concrete
 
         private IResult CheckIfImageExtensionValid(IFormFile file)
         {
-            bool isValidFileExtension =
-                Messages.ValidImageFileTypes.Any(t => t == Path.GetExtension(file.FileName).ToUpper());
+            bool isValidFileExtension = Messages.ValidImageFileTypes.Any(t => t == Path.GetExtension(file.FileName).ToUpper());
             if (!isValidFileExtension)
                 return new ErrorResult(Messages.InvalidImageExtension);
             return new SuccessResult();
@@ -138,7 +132,7 @@ namespace Business.Concrete
             string path = @"\Images\default.png";
             var result = _carImageDal.GetAll(c => c.CarId == carId);
             if (!result.Any())
-                return new List<CarImage> {new CarImage {CarId = carId, ImagePath = path}};
+                return new List<CarImage>{new CarImage { CarId = carId, ImagePath = path }};
             return result;
         }
 
@@ -149,5 +143,4 @@ namespace Business.Concrete
             return new ErrorResult(Messages.CarImageNotFound);
         }
     }
-
 }

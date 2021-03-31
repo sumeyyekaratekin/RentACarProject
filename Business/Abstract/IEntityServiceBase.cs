@@ -11,6 +11,6 @@ namespace Business.Abstract
         IResult Delete(T Tentity);
         IResult Update(T Tentity);
         IDataResult<List<T>> GetAll();
-        IDataResult<T> GetById(int Id);
+        IDataResult<T> GetById(int id);
     }
 }
