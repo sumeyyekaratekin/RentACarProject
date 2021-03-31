@@ -82,9 +82,9 @@ namespace WebAPI
 
             app.UseStaticFiles();
 
-            app.UseAuthentication();
+            app.UseAuthentication(); //Doðrulama
 
-            app.UseAuthorization();
+            app.UseAuthorization(); //Yetki
 
             app.UseEndpoints(endpoints =>
             {

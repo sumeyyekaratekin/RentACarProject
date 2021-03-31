@@ -14,12 +14,10 @@ namespace DataAccess.Concrete.EntityFramework.Context
         {
             optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb; Database=RentACar; Trusted_Connection = true");
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CustomerCard>().HasKey(c => new { c.CustomerId, c.CardId });
         }
-
         public DbSet<Car> Cars { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Color> Colors { get; set; }

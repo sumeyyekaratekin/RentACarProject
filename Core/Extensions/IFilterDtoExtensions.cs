@@ -8,7 +8,7 @@ using Core.Utilities.Attributes.FilterAttributes;
 
 namespace Core.Extensions
 {
-    public static class FilterDtoExtensions
+    public static class IFilterDtoExtensions
     {
         public static Expression<Func<TEntity, bool>> GetFilterExpression<TEntity>(this IFilterDto filterDto)
         {
