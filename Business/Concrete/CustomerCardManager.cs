@@ -30,20 +30,9 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CardDeleted);
         }
 
-        public IResult Update(CustomerCard customerCard)
-        {
-            _customerCardDal.Update(customerCard);
-            return new SuccessResult();
-        }
         public IDataResult<List<CustomerCard>> GetAll()
         {
             return new SuccessDataResult<List<CustomerCard>>(_customerCardDal.GetAll());
-        }
-
-        public IDataResult<CustomerCard> GetById(int id)
-        {
-            return new SuccessDataResult<CustomerCard>(_customerCardDal.Get(c => c.CustomerId == id));
-
         }
 
         public IDataResult<List<CustomerCard>> GetByCustomerId(int customerId)
@@ -51,6 +40,10 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CustomerCard>>(_customerCardDal.GetAll(cc => cc.CustomerId == customerId));
         }
 
-
+        public IResult Update(CustomerCard customerCard)
+        {
+            _customerCardDal.Update(customerCard);
+            return new SuccessResult();
+        }
     }
 }

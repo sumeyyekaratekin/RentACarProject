@@ -5,18 +5,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using DataAccess.Concrete.EntityFramework.Context;
 
-namespace DataAccess.Concrete.EntityFramework.Repository
+namespace DataAccess.Concrete.Ef
 {
-    public class EfCarImageDal : EfEntityRepositoryBase<CarImage,RentACarContext>, ICarImageDal
+    public class EfCarImageDal : EfEntityRepositoryBase<CarImage, CarRentalContext>, ICarImageDal
     {
         public bool IsExist(int id)
         {
-            using (RentACarContext context = new RentACarContext())
+            using (CarRentalContext context = new CarRentalContext())
             {
                 return context.CarImages.Any(p => p.Id == id);
             }
         }
+
     }
 }

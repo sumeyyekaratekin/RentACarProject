@@ -6,8 +6,13 @@ using System.Text;
 
 namespace Business.Abstract
 {
-    public interface IFakeCardService:IEntityServiceBase<FakeCard>
+    public interface IFakeCardService
     {
+        IResult Add(FakeCard fakeCard);
+        IResult Delete(FakeCard fakeCard);
+        IResult Update(FakeCard fakeCard);
+        IDataResult<List<FakeCard>> GetAll();
+        IDataResult<FakeCard> GetById(int id);
         IDataResult<List<FakeCard>> GetByCardNumber(string cardNumber);
         IResult IsCardExist(FakeCard fakeCard);
     }

@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
@@ -14,7 +15,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
-using Business.BusinessAspect.Autofac;
 
 namespace Business.Concrete
 {
@@ -23,7 +23,7 @@ namespace Business.Concrete
         ICarDal _carDal;
         ICarImageService _carImageService;
 
-        public CarManager(ICarDal carDal, ICarImageService carImageService)
+        public CarManager(ICarDal carDal,ICarImageService carImageService)
         {
             _carDal = carDal;
             _carImageService = carImageService;
@@ -48,7 +48,7 @@ namespace Business.Concrete
         [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarsListed);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(),Messages.ProductsListed);
         }
         [CacheAspect]
         public IDataResult<Car> GetById(int id)
@@ -75,9 +75,26 @@ namespace Business.Concrete
 
         public IDataResult<List<CarDetailDto>> GetCarsDetails(CarDetailFilterDto filterDto)
         {
-       
+            //Expression propertyExp,someValue,containsMethodExp,combinedExp;
+            //Expression<Func<Car, bool>> exp = c => true, oldExp;
+            //MethodInfo method;
+            //var parameterExp = Expression.Parameter(typeof(Car), "type");
+            //foreach (PropertyInfo propertyInfo in filterDto.GetType().GetProperties())
+            //{
+            //    if (propertyInfo.GetValue(filterDto,null) != null)
+            //    {
+            //        oldExp = exp;
+            //        propertyExp = Expression.Property(parameterExp, propertyInfo.Name);
+            //        method = typeof(int).GetMethod("Equals", new[] { typeof(int) });
+            //        someValue = Expression.Constant(filterDto.GetType().GetProperty(propertyInfo.Name).GetValue(filterDto, null), typeof(int));
+            //        containsMethodExp = Expression.Call(propertyExp, method, someValue);
+            //        exp = Expression.Lambda<Func<Car, bool>>(containsMethodExp, parameterExp);
+            //        combinedExp = Expression.AndAlso(exp.Body,oldExp.Body);
+            //        exp = Expression.Lambda<Func<Car, bool>>(combinedExp, exp.Parameters[0]);
+            //    }
+            //}
+
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetailsByFilter(filterDto));
         }
-
     }
 }

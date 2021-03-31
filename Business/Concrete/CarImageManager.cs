@@ -1,8 +1,10 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
+using Core.Utilities.FileManager;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -11,8 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Business.BusinessAspect.Autofac;
-using Core.Utilities.FileManager;
+using System.Text;
 
 namespace Business.Concrete
 {
@@ -71,7 +72,7 @@ namespace Business.Concrete
                 }
                 return new SuccessResult();
             }
-            return new ErrorResult(Messages.CarImageNotFound);
+            return new ErrorResult(Messages.CarHaveNoImage);
         }
 
         public IDataResult<List<CarImage>> GetAll()
@@ -88,7 +89,6 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.Id == id));
         }
-
         [SecuredOperation("admin")]
         public IResult Update(CarImage carImage,IFormFile file)
         {
@@ -115,7 +115,7 @@ namespace Business.Concrete
         {
             int result = _carImageDal.GetAll(c => c.CarId == carId).Count;
             if (result >= 5)
-                return new ErrorResult(Messages.FailedCarImageAdd);
+                return new ErrorResult(Messages.ImageLimitExpiredForCar);
             return new SuccessResult();
         }
 
@@ -140,7 +140,7 @@ namespace Business.Concrete
         {
             if (_carImageDal.IsExist(id))
                 return new SuccessResult();
-            return new ErrorResult(Messages.CarImageNotFound);
+            return new ErrorResult(Messages.CarImageMustBeExists);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Business.Abstract;
 using Entities.DTOs;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : Controller
+    public class AuthController : ControllerBase
     {
         private IAuthService _authService;
 
@@ -21,7 +21,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("login")]
-        public ActionResult Login(UserForLoginDto userForLoginDto)
+        public IActionResult Login(UserForLoginDto userForLoginDto)
         {
             var userToLogin = _authService.Login(userForLoginDto);
             if (!userToLogin.Success)
@@ -35,11 +35,11 @@ namespace WebAPI.Controllers
                 return Ok(result);
             }
 
-            return BadRequest(result.Message); ;
+            return BadRequest(result.Message);
         }
 
         [HttpPost("register")]
-        public ActionResult Register(UserForRegisterDto userForRegisterDto)
+        public IActionResult Register(UserForRegisterDto userForRegisterDto)
         {
             var userExists = _authService.UserExists(userForRegisterDto.Email);
             if (!userExists.Success)
@@ -56,6 +56,7 @@ namespace WebAPI.Controllers
 
             return BadRequest(result.Message);
         }
+
         [HttpPut("changepassword")]
         public IActionResult ChangePassword(ChangePasswordDto changePasswordDto)
         {

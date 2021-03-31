@@ -37,7 +37,7 @@ namespace Business.Concrete
 
         public IDataResult<FakeCard> GetById(int id)
         {
-            return new SuccessDataResult<FakeCard>(_fakeCardDal.Get(c => c.Id == id));
+            return new SuccessDataResult<FakeCard>(_fakeCardDal.Get(c=> c.Id==id));
         }
 
         public IDataResult<List<FakeCard>> GetByCardNumber(string cardNumber)
@@ -47,10 +47,10 @@ namespace Business.Concrete
 
         public IResult IsCardExist(FakeCard fakeCard)
         {
-            var result = _fakeCardDal.Get(c => c.NameOnTheCard == fakeCard.NameOnTheCard &&
-                                               c.CardNumber == fakeCard.CardNumber &&
-                                               c.CardCvv == fakeCard.CardCvv &&
-                                               c.expirationDate == fakeCard.expirationDate);
+            var result = _fakeCardDal.Get(c => c.NameOnTheCard == fakeCard.NameOnTheCard && 
+            c.CardNumber == fakeCard.CardNumber && 
+            c.CardCvv == fakeCard.CardCvv && 
+            c.expirationDate == fakeCard.expirationDate);
             if (result == null)
             {
                 return new ErrorResult();

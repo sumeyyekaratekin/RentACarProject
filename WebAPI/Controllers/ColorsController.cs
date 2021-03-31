@@ -31,10 +31,10 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPut("update")]
-        public IActionResult Update(Color color)
+        [HttpDelete("delete")]
+        public IActionResult Delete(Color color)
         {
-            var result = _colorService.Update(color);
+            var result = _colorService.Delete(color);
             if (result.Success)
             {
                 return Ok(result);
@@ -42,10 +42,10 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpDelete("delete")]
-        public IActionResult Delete(Color color)
+        [HttpPut("update")]
+        public IActionResult Update(Color color)
         {
-            var result = _colorService.Delete(color);
+            var result = _colorService.Update(color);
             if (result.Success)
             {
                 return Ok(result);

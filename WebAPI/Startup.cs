@@ -1,12 +1,12 @@
 using Business.Abstract;
 using Business.Concrete;
-using Core.DependencyResolvers;
+using Core.DependencyResolver;
 using Core.Extensions;
 using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
-using Core.Utilities.Security.JWT;
+using Core.Utilities.Security.Jwt;
 using DataAccess.Abstract;
-using DataAccess.Concrete.EntityFramework.Repository;
+using DataAccess.Concrete.Ef;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,12 +38,9 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
-            //Cross-Origin Resource Sharing (Kökenler arasý kaynak paylaþýmý) 
             services.AddCors();
-
+            
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
-
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -58,9 +55,8 @@ namespace WebAPI
                         IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
                     };
                 });
-
             services.AddDependencyResolvers(new ICoreModule[] {
-               new CoreModule()
+                new CoreModule()
             });
         }
 
@@ -71,20 +67,18 @@ namespace WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-            //Exception Handling
-            app.ConfigureCustomExceptionMiddleware();
-            //CORS
-            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyOrigin());
 
+            //app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyOrigin());
             app.UseHttpsRedirection();
-
+            app.UseCors(x => x
+                .SetIsOriginAllowed(origin => true)
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
             app.UseRouting();
-
             app.UseStaticFiles();
-
-            app.UseAuthentication(); //Doðrulama
-
-            app.UseAuthorization(); //Yetki
+            app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

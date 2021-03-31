@@ -14,7 +14,6 @@ namespace WebAPI.Controllers
     public class CustomersController : ControllerBase
     {
         ICustomerService _customerService;
-
         public CustomersController(ICustomerService customerService)
         {
             _customerService = customerService;
@@ -31,10 +30,11 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPut("update")]
-        public IActionResult Update(Customer customer)
+
+        [HttpDelete("delete")]
+        public IActionResult Delete(Customer customer)
         {
-            var result = _customerService.Update(customer);
+            var result = _customerService.Delete(customer);
             if (result.Success)
             {
                 return Ok(result);
@@ -42,10 +42,10 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpDelete("delete")]
-        public IActionResult Delete(Customer customer)
+        [HttpPut("update")]
+        public IActionResult Update(Customer customer)
         {
-            var result = _customerService.Delete(customer);
+            var result = _customerService.Update(customer);
             if (result.Success)
             {
                 return Ok(result);

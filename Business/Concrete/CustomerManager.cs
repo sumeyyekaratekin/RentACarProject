@@ -23,12 +23,12 @@ namespace Business.Concrete
             var result = BusinessRules.Run(
                 CheckFindexMax(customer),
                 CheckFindexMax(customer));
-            if (result != null)
+            if(result != null)
             {
                 return result;
             }
             _customerDal.Add(customer);
-            return new SuccessResult(Messages.AddedCustomer);
+            return new SuccessResult(Messages.CustomerAdded);
         }
 
         public IResult Delete(Customer customer)
@@ -39,7 +39,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Customer>> GetAll()
         {
-            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(), Messages.UsersListed);
+            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(),Messages.CustomersListed);
         }
 
         public IDataResult<Customer> GetById(int id)
@@ -62,7 +62,7 @@ namespace Business.Concrete
 
         public IResult CheckFindexMin(Customer customer)
         {
-            if (customer.FindeksScore < 0)
+            if(customer.FindeksScore < 0)
             {
                 return new ErrorResult();
             }
