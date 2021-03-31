@@ -1,24 +1,20 @@
-﻿using Core.Utilities.IoC;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.RegularExpressions;
 using System.Linq;
+using Core.Utilities.IoC;
 
 namespace Core.CrossCuttingConcerns.Caching.Microsoft
 {
     public class MemoryCacheManager : ICacheManager
     {
-        //Adapter Pattern
         IMemoryCache _memoryCache;
-
         public MemoryCacheManager()
         {
             _memoryCache = ServiceTool.ServiceProvider.GetService<IMemoryCache>();
         }
-
         public void Add(string key, object value, int duration)
         {
             _memoryCache.Set(key, value, TimeSpan.FromMinutes(duration));

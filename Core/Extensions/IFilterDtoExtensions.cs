@@ -1,15 +1,16 @@
-﻿using Core.Entities;
+﻿using Core.Entities.Abstract;
+using Core.Utilities.Attributes.FilterAttributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Core.Utilities.Attributes.FilterAttributes;
 
 namespace Core.Extensions
 {
     public static class IFilterDtoExtensions
     {
+
         public static Expression<Func<TEntity, bool>> GetFilterExpression<TEntity>(this IFilterDto filterDto)
         {
             Expression propertyExp, propertyValue, combinedExp;

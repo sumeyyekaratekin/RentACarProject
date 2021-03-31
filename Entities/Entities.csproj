@@ -2,13 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <OutputType>Library</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Abstract\**" />
-    <EmbeddedResource Remove="Abstract\**" />
-    <None Remove="Abstract\**" />
+    <Folder Include="Abstract\" />
   </ItemGroup>
 
   <ItemGroup>
