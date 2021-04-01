@@ -129,7 +129,7 @@ namespace Business.Concrete
 
         private List<CarImage> CheckIfCarHaveNoImage(int carId)
         {
-            string path = @"\Images\default.png";
+            string path = @"\Images\images.png";
             var result = _carImageDal.GetAll(c => c.CarId == carId);
             if (!result.Any())
                 return new List<CarImage>{new CarImage { CarId = carId, ImagePath = path }};
