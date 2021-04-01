@@ -5,9 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataAccess.Concrete.Ef
+namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfBrandDal : EfEntityRepositoryBase<Brand,RentACarContext>,IBrandDal
+    public class EfFakeCardDal : EfEntityRepositoryBase<FakeCard,RentACarContext>,IFakeCardDal
     {
     }
 }
