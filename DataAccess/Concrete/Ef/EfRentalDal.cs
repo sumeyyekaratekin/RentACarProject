@@ -9,11 +9,11 @@ using System.Linq;
 
 namespace DataAccess.Concrete.Ef
 {
-    public class EfRentalDal : EfEntityRepositoryBase<Rental, CarRentalContext>, IRentalDal
+    public class EfRentalDal : EfEntityRepositoryBase<Rental, RentACarContext>, IRentalDal
     {
         public List<RentalDetailDto> GetAllRentalDetails()
         {
-            using (CarRentalContext context = new CarRentalContext())
+            using (RentACarContext context = new RentACarContext())
             {
                 var result = from rent in context.Rentals
                              join car in context.Cars

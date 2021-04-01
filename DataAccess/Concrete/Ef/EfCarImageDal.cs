@@ -8,11 +8,11 @@ using System.Text;
 
 namespace DataAccess.Concrete.Ef
 {
-    public class EfCarImageDal : EfEntityRepositoryBase<CarImage, CarRentalContext>, ICarImageDal
+    public class EfCarImageDal : EfEntityRepositoryBase<CarImage, RentACarContext>, ICarImageDal
     {
         public bool IsExist(int id)
         {
-            using (CarRentalContext context = new CarRentalContext())
+            using (RentACarContext context = new RentACarContext())
             {
                 return context.CarImages.Any(p => p.Id == id);
             }

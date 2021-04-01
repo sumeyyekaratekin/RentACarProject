@@ -7,11 +7,11 @@ using System.Linq;
 
 namespace DataAccess.Concrete.Ef
 {
-    public class EfUserDal : EfEntityRepositoryBase<User, CarRentalContext>, IUserDal
+    public class EfUserDal : EfEntityRepositoryBase<User, RentACarContext>, IUserDal
     {
         public List<OperationClaim> GetClaims(User user)
         {
-            using(CarRentalContext context = new CarRentalContext())
+            using(RentACarContext context = new RentACarContext())
             {
                 var result = from operationClaim in context.OperationClaims
                              join userOperationClaim in context.UserOperationClaims

@@ -10,11 +10,11 @@ using System.Linq.Expressions;
 
 namespace DataAccess.Concrete.Ef
 {
-    public class EfCarDal : EfEntityRepositoryBase<Car, CarRentalContext>, ICarDal
+    public class EfCarDal : EfEntityRepositoryBase<Car, RentACarContext>, ICarDal
     {
         public List<CarDetailDto> GetAllCarDetailsByFilter(CarDetailFilterDto filterDto)
         {
-            using (CarRentalContext context = new CarRentalContext())
+            using (RentACarContext context = new RentACarContext())
             {
                 var filterExpression = filterDto.GetFilterExpression<Car>();
                 var result = from car in filterExpression == null ? context.Cars : context.Cars.Where(filterExpression)
