@@ -27,6 +27,7 @@ Kurumsal, Katmanlı Mimari yapısı kullanılarak **SOLID** kuralları dahilinde
         - Performance
         - Transaction
         - Validation
+        - Logging
 - Fluent Validation
 - Cache yönetimi
 - JWT Authentication
