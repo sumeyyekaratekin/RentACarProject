@@ -4,16 +4,6 @@
 
 Kurumsal, Katmanlı Mimari yapısı kullanılarak **SOLID** kuralları dahilinde oluşturulmuş, C# dili ile yazılmış Araba kiralama fikri üzerinden ilerlenmştir.
 
-### Katmanlar
-
-- **Core**: Projenin çekirdek katmanı, evrensel operasyonlar için kullanılmaktadır.
-- **DataAccess**: Projenin, Veritabanı ile bağını kurmak için oluşturulmuştur.
-- **Entities**: Veritabanındaki tablolarımızın projemizde nesne olarak kullanılması için oluşturulmuştur. DTO nesnelerinide
-  barındırmaktadır.
-- **Business**: Projemizin iş katmanıdır. Türlü iş kuralları; Veri kontrolleri, validasyonlar, IoC Container'lar ve yetki
-  kontrolleri
-- **WebAPI**: Prjenin Restful API Katmanıdır. Kullanılan methodlar: Get, Post, Put, Delete
-
 ### Kullanılan Teknolojiler
 
 - .Net Core 3.1
@@ -27,6 +17,7 @@ Kurumsal, Katmanlı Mimari yapısı kullanılarak **SOLID** kuralları dahilinde
         - Performance
         - Transaction
         - Validation
+        - Logging
 - Fluent Validation
 - Cache yönetimi
 - JWT Authentication
@@ -42,3 +33,13 @@ Kurumsal, Katmanlı Mimari yapısı kullanılarak **SOLID** kuralları dahilinde
     - Error Handling
         - Error Details
         - Validation Error Details
+
+### Katmanlar
+
+- **Core**: Projenin çekirdek katmanı, evrensel operasyonlar için kullanılmaktadır.
+- **DataAccess**: Projenin, Veritabanı ile bağını kurmak için oluşturulmuştur.
+- **Entities**: Veritabanındaki tablolarımızın projemizde nesne olarak kullanılması için oluşturulmuştur. DTO nesnelerinide
+  barındırmaktadır.
+- **Business**: Projemizin iş katmanıdır. Türlü iş kuralları; Veri kontrolleri, validasyonlar, IoC Container'lar ve yetki
+  kontrolleri
+- **WebAPI**: Prjenin Restful API Katmanıdır. Kullanılan methodlar: Get, Post, Put, Delete
