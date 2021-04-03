@@ -6,12 +6,8 @@ using System.Text;
 
 namespace Business.Abstract
 {
-    public interface ICustomerCardService
+    public interface ICustomerCardService : IEntityServiceBase<CustomerCard>
     {
-        IResult Add(CustomerCard customerCard);
-        IResult Delete(CustomerCard customerCard);
-        IResult Update(CustomerCard customerCard);
-        IDataResult<List<CustomerCard>> GetAll();
         IDataResult<List<CustomerCard>> GetByCustomerId(int customerId);
     }
 }

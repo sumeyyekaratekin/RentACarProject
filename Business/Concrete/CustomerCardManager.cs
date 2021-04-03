@@ -35,6 +35,12 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CustomerCard>>(_customerCardDal.GetAll());
         }
 
+        public IDataResult<CustomerCard> GetById(int Id)
+        {
+            //
+            throw new NotImplementedException();
+        }
+
         public IDataResult<List<CustomerCard>> GetByCustomerId(int customerId)
         {
             return new SuccessDataResult<List<CustomerCard>>(_customerCardDal.GetAll(cc => cc.CustomerId == customerId));

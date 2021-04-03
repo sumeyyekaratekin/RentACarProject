@@ -7,15 +7,11 @@ using System.Text;
 
 namespace Business.Abstract
 {
-    public interface IUserService
+    public interface IUserService : IEntityServiceBase<User>
     {
-        IDataResult<List<OperationClaim>> GetClaims(User user);
-        IResult Add(User user);
-        IResult Update(User user);
         IResult UpdateInfos(User user);
-        IDataResult<List<User>> GetAll();
-        IDataResult<User> GetById(int id);
         IDataResult<User> GetByMail(string email);
+        IDataResult<List<OperationClaim>> GetClaims(User user);
 
     }
 }
