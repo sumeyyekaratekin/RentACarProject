@@ -4,6 +4,8 @@
 
 Kurumsal, Katmanlı Mimari yapısı kullanılarak **SOLID** kuralları dahilinde oluşturulmuş, C# dili ile yazılmış Araba kiralama fikri üzerinden ilerlenmştir.
 
+* [Angular for Frontend](https://github.com/sumeyyekaratekin/RentACar_Frontend)
+
 ### Kullanılan Teknolojiler
 
 - .Net Core 3.1
