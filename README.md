@@ -43,6 +43,6 @@ Kurumsal, Katmanlı Mimari yapısı kullanılarak **SOLID** kuralları dahilinde
 - **Business**: Projemizin iş katmanıdır. Türlü iş kuralları; Veri kontrolleri, validasyonlar, IoC Container'lar ve yetki
   kontrolleri
 - **WebAPI**: Projenin Restful API Katmanıdır. Kullanılan methodlar: Get, Post, Put, Delete
-# Database Tables
+# Image Tables
 
-![ImageTables](https://github.com/sumeyyekaratekin/RentACarProject/blob/master/Screenshots/brand add.png)
+![ImageTables](https://github.com/sumeyyekaratekin/RentACarProject/blob/master/Screenshots/brand-add.png)
