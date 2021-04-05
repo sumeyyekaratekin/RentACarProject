@@ -46,3 +46,7 @@ Kurumsal, Katmanlı Mimari yapısı kullanılarak **SOLID** kuralları dahilinde
 # Image Tables
 
 ![ImageTables](https://github.com/sumeyyekaratekin/RentACarProject/blob/main/Screenshots/brand-add.png)
+
+![ImageTables](https://github.com/sumeyyekaratekin/RentACarProject/blob/main/Screenshots/brand-delete.png)
+
+![ImageTables](https://github.com/sumeyyekaratekin/RentACarProject/blob/main/Screenshots/brand-update.png)
