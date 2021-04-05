@@ -45,4 +45,4 @@ Kurumsal, Katmanlı Mimari yapısı kullanılarak **SOLID** kuralları dahilinde
 - **WebAPI**: Projenin Restful API Katmanıdır. Kullanılan methodlar: Get, Post, Put, Delete
 # Image Tables
 
-![ImageTables](https://github.com/sumeyyekaratekin/RentACarProject/blob/master/Screenshots/brand-add.png)
+![ImageTables](https://github.com/sumeyyekaratekin/RentACarProject/blob/main/Screenshots/brand-add.png)
